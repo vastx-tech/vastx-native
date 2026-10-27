@@ -6,6 +6,8 @@ whatever is on `main` when you install.
 
 ## Unreleased
 
+## 3.0.0 - 2026-10-27
+
 ### Changed
 
 - **Breaking:** the framework is now **VastX Native**, published on npm as
