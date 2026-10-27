@@ -1,8 +1,8 @@
 import { loadNuxtConfig } from '@nuxt/kit'
 
 const defaults = {
-  appId: 'org.nuxtnative.app',
-  appName: 'NuxtNativeApp',
+  appId: 'org.vastxnative.app',
+  appName: 'VastXNativeApp',
   platforms: ['ios', 'android'],
   entry: 'app/app.vue',
   styling: 'auto',

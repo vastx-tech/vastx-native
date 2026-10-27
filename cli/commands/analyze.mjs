@@ -11,12 +11,12 @@ import { stopGradleDaemonIfLowMemory } from '../lib/gradle-tuning.mjs'
  */
 export async function analyze(platform) {
   if (platform !== 'ios' && platform !== 'android') {
-    throw new Error('[nuxt-native] Usage: nuxt-native analyze <ios|android>')
+    throw new Error('[vastx-native] Usage: vastx-native analyze <ios|android>')
   }
 
   generateEntry({ pagesDir: 'app/pages' })
 
-  console.log(`[nuxt-native] Building ${platform} with a bundle report ...`)
+  console.log(`[vastx-native] Building ${platform} with a bundle report ...`)
   try {
     await run('npx', ['--yes', 'nativescript', 'build', platform, '--env.report'])
   } finally {
@@ -24,7 +24,7 @@ export async function analyze(platform) {
   }
 
   console.log(`
-[nuxt-native] Report written to:
+[vastx-native] Report written to:
   report/report.html   (open in a browser — an interactive treemap of what's in your bundle)
   report/stats.json    (raw webpack stats, for feeding into other tooling)
 `)

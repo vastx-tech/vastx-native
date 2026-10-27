@@ -1,5 +1,5 @@
 {
-  "name": "nuxt-native",
+  "name": "vastx-native",
   "version": "2.2.1",
   "description": "Build real native Android and iOS apps with Nuxt and Vue: file-based pages, auto-imports and native views, no WebView. Powered by NativeScript.",
   "keywords": [
@@ -13,12 +13,12 @@
     "ios",
     "cross-platform"
   ],
-  "homepage": "https://nuxt-native.vastx.in",
+  "homepage": "https://native.vastx.in",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vastx-tech/nuxt-native.git"
+    "url": "git+https://github.com/vastx-tech/vastx-native.git"
   },
-  "bugs": "https://github.com/vastx-tech/nuxt-native/issues",
+  "bugs": "https://github.com/vastx-tech/vastx-native/issues",
   "license": "MIT",
   "type": "module",
   "exports": {
@@ -32,7 +32,7 @@
   "main": "./dist/module.mjs",
   "types": "./dist/types.d.mts",
   "bin": {
-    "nuxt-native": "bin/nuxt-native.mjs"
+    "vastx-native": "bin/vastx-native.mjs"
   },
   "files": [
     "dist",
@@ -52,9 +52,9 @@
     "dev": "nuxi dev playground",
     "dev:build": "nuxi build playground",
     "dev:prepare": "nuxt-module-build build --stub && nuxt-module-build prepare && nuxi prepare playground",
-    "native:init": "node ./bin/nuxt-native.mjs init",
-    "native:dev:ios": "node ./bin/nuxt-native.mjs dev ios",
-    "native:dev:android": "node ./bin/nuxt-native.mjs dev android",
+    "native:init": "node ./bin/vastx-native.mjs init",
+    "native:dev:ios": "node ./bin/vastx-native.mjs dev ios",
+    "native:dev:android": "node ./bin/vastx-native.mjs dev android",
     "lint": "eslint .",
     "typecheck": "vue-tsc --noEmit",
     "test": "node --test cli/tests/release.test.mjs cli/tests/icons.test.mjs cli/tests/android-theme.test.mjs cli/tests/auto-import-loader.test.mjs cli/tests/styling.test.mjs cli/tests/ios-infoplist-fix.test.mjs cli/tests/lighter.test.mjs mcp-server/packaged-cli.test.mjs",

@@ -6,7 +6,7 @@ import { test } from 'node:test'
 import { ensureIosInfoPlistKeys } from '../lib/ios-infoplist-fix.mjs'
 
 function fixture(t) {
-  const dir = mkdtempSync(join(tmpdir(), 'nuxt-native-plist-'))
+  const dir = mkdtempSync(join(tmpdir(), 'vastx-native-plist-'))
   t.after(() => rmSync(dir, { recursive: true, force: true }))
   return dir
 }

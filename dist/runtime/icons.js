@@ -13,7 +13,7 @@ const cache = /* @__PURE__ */ new WeakMap();
 function buildIconSvg(iconSet, name, options) {
   const iconData = getIconData(iconSet, name);
   if (!iconData) {
-    throw new Error(`[nuxt-native] Icon "${name}" was not found in the given icon set.`);
+    throw new Error(`[vastx-native] Icon "${name}" was not found in the given icon set.`);
   }
   const size = {};
   if (options.width !== void 0) size.width = options.width;

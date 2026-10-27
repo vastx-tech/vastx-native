@@ -5,7 +5,7 @@ import { basename, extname, join } from 'node:path'
 const { loadVueCompiler } = createRequire(import.meta.url)('./vue-compiler.cjs')
 
 /**
- * Every nuxt-native runtime composable, explicit and hand-maintained —
+ * Every vastx-native runtime composable, explicit and hand-maintained —
  * same precedent as RUNTIME_COMPONENTS in generate-entry.mjs, not
  * directory-scanned. `useWebSocket` specifically MUST stay a hand-listed
  * entry with its real, suffix-less specifier: it's platform-split
@@ -30,40 +30,40 @@ const { loadVueCompiler } = createRequire(import.meta.url)('./vue-compiler.cjs')
 // helpers now — the style-object functions from src/runtime/style.ts.
 // The auto-import loader itself doesn't distinguish composables from
 // plain functions; this list just grew to cover both.
-const NUXT_NATIVE_COMPOSABLES = [
-  { name: 'useWebSocket', from: 'nuxt-native/runtime/composables/useWebSocket', typesFrom: 'nuxt-native/runtime/composables/useWebSocket.android.js' },
-  { name: 'useCamera', from: 'nuxt-native/runtime/composables/useCamera.js' },
-  { name: 'useGeolocation', from: 'nuxt-native/runtime/composables/useGeolocation.js' },
-  { name: 'useBottomSheet', from: 'nuxt-native/runtime/composables/useBottomSheet.js' },
-  { name: 'useDevice', from: 'nuxt-native/runtime/composables/useDevice.js' },
-  { name: 'useModal', from: 'nuxt-native/runtime/composables/useModal.js' },
-  { name: 'useNativeRouter', from: 'nuxt-native/runtime/composables/useNativeRouter.js' },
-  { name: 'useSafeArea', from: 'nuxt-native/runtime/composables/useSafeArea.js' },
-  { name: 'useMcpClient', from: 'nuxt-native/runtime/composables/useMcpClient.js' },
-  { name: 'useStorage', from: 'nuxt-native/runtime/composables/useStorage.js' },
-  { name: 'padding', from: 'nuxt-native/runtime/style.js' },
-  { name: 'margin', from: 'nuxt-native/runtime/style.js' },
-  { name: 'bg', from: 'nuxt-native/runtime/style.js' },
-  { name: 'textStyle', from: 'nuxt-native/runtime/style.js' },
-  { name: 'box', from: 'nuxt-native/runtime/style.js' },
-  { name: 'size', from: 'nuxt-native/runtime/style.js' },
-  { name: 'flex', from: 'nuxt-native/runtime/style.js' },
-  { name: 'visible', from: 'nuxt-native/runtime/style.js' },
-  { name: 'zIndex', from: 'nuxt-native/runtime/style.js' },
-  { name: 'opacity', from: 'nuxt-native/runtime/style.js' },
-  { name: 'shade', from: 'nuxt-native/runtime/style.js' },
-  { name: 'tint', from: 'nuxt-native/runtime/style.js' },
-  { name: 'border', from: 'nuxt-native/runtime/style.js' },
-  { name: 'transform', from: 'nuxt-native/runtime/style.js' },
-  { name: 'align', from: 'nuxt-native/runtime/style.js' },
-  { name: 'elevation', from: 'nuxt-native/runtime/style.js' },
-  { name: 'direction', from: 'nuxt-native/runtime/style.js' },
-  { name: 'tintColor', from: 'nuxt-native/runtime/style.js' },
-  { name: 'placeholder', from: 'nuxt-native/runtime/style.js' }
+const VASTX_NATIVE_COMPOSABLES = [
+  { name: 'useWebSocket', from: 'vastx-native/runtime/composables/useWebSocket', typesFrom: 'vastx-native/runtime/composables/useWebSocket.android.js' },
+  { name: 'useCamera', from: 'vastx-native/runtime/composables/useCamera.js' },
+  { name: 'useGeolocation', from: 'vastx-native/runtime/composables/useGeolocation.js' },
+  { name: 'useBottomSheet', from: 'vastx-native/runtime/composables/useBottomSheet.js' },
+  { name: 'useDevice', from: 'vastx-native/runtime/composables/useDevice.js' },
+  { name: 'useModal', from: 'vastx-native/runtime/composables/useModal.js' },
+  { name: 'useNativeRouter', from: 'vastx-native/runtime/composables/useNativeRouter.js' },
+  { name: 'useSafeArea', from: 'vastx-native/runtime/composables/useSafeArea.js' },
+  { name: 'useMcpClient', from: 'vastx-native/runtime/composables/useMcpClient.js' },
+  { name: 'useStorage', from: 'vastx-native/runtime/composables/useStorage.js' },
+  { name: 'padding', from: 'vastx-native/runtime/style.js' },
+  { name: 'margin', from: 'vastx-native/runtime/style.js' },
+  { name: 'bg', from: 'vastx-native/runtime/style.js' },
+  { name: 'textStyle', from: 'vastx-native/runtime/style.js' },
+  { name: 'box', from: 'vastx-native/runtime/style.js' },
+  { name: 'size', from: 'vastx-native/runtime/style.js' },
+  { name: 'flex', from: 'vastx-native/runtime/style.js' },
+  { name: 'visible', from: 'vastx-native/runtime/style.js' },
+  { name: 'zIndex', from: 'vastx-native/runtime/style.js' },
+  { name: 'opacity', from: 'vastx-native/runtime/style.js' },
+  { name: 'shade', from: 'vastx-native/runtime/style.js' },
+  { name: 'tint', from: 'vastx-native/runtime/style.js' },
+  { name: 'border', from: 'vastx-native/runtime/style.js' },
+  { name: 'transform', from: 'vastx-native/runtime/style.js' },
+  { name: 'align', from: 'vastx-native/runtime/style.js' },
+  { name: 'elevation', from: 'vastx-native/runtime/style.js' },
+  { name: 'direction', from: 'vastx-native/runtime/style.js' },
+  { name: 'tintColor', from: 'vastx-native/runtime/style.js' },
+  { name: 'placeholder', from: 'vastx-native/runtime/style.js' }
 ]
 
 /**
- * Computes the full auto-import entry list for a project: nuxt-native's
+ * Computes the full auto-import entry list for a project: vastx-native's
  * own composables above, plus every value export of every file directly
  * inside the project's own `app/composables/`, `app/utils/` and
  * `app/stores/` (mirroring Nuxt's own convention for the first two, and
@@ -81,7 +81,7 @@ const NUXT_NATIVE_COMPOSABLES = [
  * in Nuxt. Type-only exports and `export * from` re-exports are skipped.
  */
 export function collectAutoImportEntries(projectRoot, dirs = ['app/composables', 'app/utils', 'app/stores']) {
-  const entries = [...NUXT_NATIVE_COMPOSABLES]
+  const entries = [...VASTX_NATIVE_COMPOSABLES]
   const seen = new Set(entries.map(entry => entry.name))
 
   for (const relDir of dirs) {
@@ -98,7 +98,7 @@ export function collectAutoImportEntries(projectRoot, dirs = ['app/composables',
 
       for (const exported of scanValueExports(projectRoot, readFileSync(join(dir, file), 'utf8'), file)) {
         const name = exported === 'default' ? fileName : exported
-        // First definition wins on a clash, nuxt-native's own included —
+        // First definition wins on a clash, vastx-native's own included —
         // the same name can't be auto-imported from two places at once.
         if (seen.has(name) || !/^[a-z_$][\w$]*$/i.test(name)) continue
         seen.add(name)
@@ -175,7 +175,7 @@ export function renderAutoImportTypes(entries, components = [], { pinia = false 
   const templateProps = entries.map(entry => `    readonly ${entry.name}: ${typeOf(entry)}`).join('\n')
   const globalComponents = components.map(({ tag, specifier }) => `    ${tag}: typeof import(${JSON.stringify(specifier)})['default']`).join('\n')
 
-  return `// Generated by nuxt-native — do not edit by hand, regenerated on every
+  return `// Generated by vastx-native — do not edit by hand, regenerated on every
 // init/dev/build. Gives vue-tsc/your editor's TS server static knowledge
 // of every auto-imported composable/util so they don't show as
 // "Cannot find name" errors, even though no file actually imports them.
@@ -191,7 +191,7 @@ ${templateProps}
 ${globalComponents}
   }
   interface GlobalDirectives {
-    vTap: typeof import('nuxt-native/runtime/native-tap.js')['vTap']
+    vTap: typeof import('vastx-native/runtime/native-tap.js')['vTap']
   }
 }
 ${pinia ? PINIA_PERSIST_TYPES : ''}`
@@ -201,7 +201,7 @@ const PINIA_PERSIST_TYPES = `declare module 'pinia' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   export interface DefineStoreOptionsBase<S, Store> {
     /** Save this store's state on the device and restore it at startup. */
-    persist?: boolean | import('nuxt-native/runtime/pinia-persist.js').PersistOptions
+    persist?: boolean | import('vastx-native/runtime/pinia-persist.js').PersistOptions
   }
 }
 `

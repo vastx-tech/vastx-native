@@ -1,5 +1,5 @@
 {
-  "name": "nuxt-native",
+  "name": "vastx-native",
   "configKey": "native",
   "compatibility": {
     "nuxt": ">=3.14.0"

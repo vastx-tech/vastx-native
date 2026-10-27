@@ -7,7 +7,7 @@ export function resolveLength(value) {
   if (remMatch) return Number(remMatch[1]) * REM_TO_DIP;
   const pxMatch = /^(-?\d+(?:\.\d+)?)px$/.exec(value);
   if (pxMatch) return Number(pxMatch[1]);
-  throw new Error(`[nuxt-native] Invalid length: "${value}" \u2014 expected a spacing token, a number, or a "Npx"/"Nrem" string.`);
+  throw new Error(`[vastx-native] Invalid length: "${value}" \u2014 expected a spacing token, a number, or a "Npx"/"Nrem" string.`);
 }
 export function resolveColor(input) {
   return input in colors ? colors[input] : input;

@@ -1,6 +1,6 @@
 const path = require('node:path')
 const webpack = require('@nativescript/webpack')
-const NuxtNativeAppIdentifierPlugin = require('nuxt-native/cli/lib/app-identifier-webpack-plugin.cjs')
+const VastXNativeAppIdentifierPlugin = require('vastx-native/cli/lib/app-identifier-webpack-plugin.cjs')
 
 module.exports = (env) => {
   webpack.init(env)
@@ -8,8 +8,8 @@ module.exports = (env) => {
 
   webpack.chainWebpack((config) => {
     config.resolve.alias.set(
-      '#build/nuxt-native/route-manifest.mjs$',
-      path.resolve(__dirname, '.nuxt-native/route-manifest.mjs')
+      '#build/vastx-native/route-manifest.mjs$',
+      path.resolve(__dirname, '.vastx-native/route-manifest.mjs')
     )
   })
 
@@ -27,26 +27,26 @@ module.exports = (env) => {
   // import into, so the vue-facing rule only matches vue-loader's already
   // split-out <script> sub-request (resourceQuery contains "type=script").
   webpack.chainWebpack((config) => {
-    const loaderPath = require.resolve('nuxt-native/cli/lib/auto-import-loader.cjs')
+    const loaderPath = require.resolve('vastx-native/cli/lib/auto-import-loader.cjs')
 
-    config.module.rule('nuxt-native-auto-import-ts')
+    config.module.rule('vastx-native-auto-import-ts')
       .enforce('pre')
       .test(/\.ts$/)
       .exclude.add(/node_modules/).end()
-      .use('nuxt-native-auto-import-loader')
+      .use('vastx-native-auto-import-loader')
       .loader(loaderPath)
 
-    config.module.rule('nuxt-native-auto-import-vue-script')
+    config.module.rule('vastx-native-auto-import-vue-script')
       .enforce('pre')
       .test(/\.vue$/)
       .resourceQuery(/type=script/)
-      .use('nuxt-native-auto-import-loader')
+      .use('vastx-native-auto-import-loader')
       .loader(loaderPath)
   })
 
   // ForkTsCheckerWebpackPlugin (registered by @nativescript/webpack's own
   // base config whenever the project depends on "typescript", which every
-  // nuxt-native project does) defaults to a flat 4096 MB memory limit for
+  // vastx-native project does) defaults to a flat 4096 MB memory limit for
   // its separate type-checking process, regardless of the machine actually
   // running the build — the exact same class of problem
   // ensureGradleMemorySettings already fixes for Gradle's heap ceiling.
@@ -78,8 +78,8 @@ module.exports = (env) => {
 
   webpack.chainWebpack((config) => {
     config
-      .plugin('nuxt-native-app-identifier')
-      .use(NuxtNativeAppIdentifierPlugin, [{ appId: "com.example.referenceapp" }])
+      .plugin('vastx-native-app-identifier')
+      .use(VastXNativeAppIdentifierPlugin, [{ appId: "com.example.referenceapp" }])
   })
 
   return webpack.resolveConfig()

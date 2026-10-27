@@ -34,17 +34,17 @@ export async function lint({ appDir = 'app', pagesDir = 'app/pages' } = {}) {
   const knownRoutes = [...routeNames].join(', ')
 
   if (problems.length === 0) {
-    console.log(`[nuxt-native] lint: OK — every navigate() call matches a real route.`)
-    console.log(`[nuxt-native] Routes: ${knownRoutes}`)
+    console.log(`[vastx-native] lint: OK — every navigate() call matches a real route.`)
+    console.log(`[vastx-native] Routes: ${knownRoutes}`)
     return
   }
 
-  console.log(`[nuxt-native] lint: ${problems.length} navigate() call(s) reference a route that doesn't exist:\n`)
+  console.log(`[vastx-native] lint: ${problems.length} navigate() call(s) reference a route that doesn't exist:\n`)
   for (const { file, routeName } of problems) {
     console.log(`  ${file}`)
     console.log(`    navigate('${routeName}') — no route named "${routeName}"`)
   }
-  console.log(`\n[nuxt-native] Known routes: ${knownRoutes}`)
+  console.log(`\n[vastx-native] Known routes: ${knownRoutes}`)
   process.exitCode = 1
 }
 

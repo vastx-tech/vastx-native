@@ -1,6 +1,6 @@
-# Nuxt Native for VS Code
+# VastX Native for VS Code
 
-Run, hot-reload, and manage [Nuxt Native](https://github.com/vastx-tech/nuxt-native)
+Run, hot-reload, and manage [VastX Native](https://github.com/vastx-tech/vastx-native)
 projects without leaving VS Code.
 
 ## Features
@@ -12,14 +12,13 @@ projects without leaving VS Code.
   same keypresses `ns run` listens for interactively, from the status bar
   or Command Palette instead of switching focus to the terminal.
 - **Stop** — quits the running dev session cleanly.
-- Every `nuxt-native` CLI command (`doctor`, `build`, `analyze`, `lint`,
+- Every `vastx-native` CLI command (`doctor`, `build`, `analyze`, `lint`,
   `clean`, `keystore create`, `init`, `create`) from the Command Palette.
 
 ## Requirements
 
-A project created with `nuxt-native` (`npx github:vastx-tech/nuxt-native
-create ...`) — this extension activates when a workspace contains a
-`nativescript.config.ts`.
+A VastX Native project (`npx vastx-native@latest create my-app`). The extension
+activates when a workspace contains a `nativescript.config.ts`.
 
 ## Why a real terminal, not a background process
 

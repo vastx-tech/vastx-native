@@ -17,27 +17,27 @@ test('native starter omits Tailwind and has a usable page', () => {
 })
 
 test('generated entry registers only tags used by app templates', () => {
-  const root = mkdtempSync(join(tmpdir(), 'nuxt-native-light-'))
+  const root = mkdtempSync(join(tmpdir(), 'vastx-native-light-'))
   try {
     mkdirSync(join(root, 'app/pages'), { recursive: true })
     writeFileSync(join(root, 'package.json'), '{}')
     writeFileSync(join(root, 'app/pages/index.vue'), '<template><NPage><NButton text="Go" /></NPage></template>')
     generateEntry({ projectRoot: root })
-    const entry = readFileSync(join(root, '.nuxt-native/app.js'), 'utf8')
+    const entry = readFileSync(join(root, '.vastx-native/app.js'), 'utf8')
     assert.match(entry, /components\/NPage.vue/)
     assert.match(entry, /components\/NButton.vue/)
     assert.doesNotMatch(entry, /components\/NSkeleton.vue/)
 
     writeFileSync(join(root, 'app/pages/index.vue'), '<template><component :is="selected" /></template>')
     generateEntry({ projectRoot: root })
-    assert.match(readFileSync(join(root, '.nuxt-native/app.js'), 'utf8'), /components\/NSkeleton.vue/)
+    assert.match(readFileSync(join(root, '.vastx-native/app.js'), 'utf8'), /components\/NSkeleton.vue/)
   } finally {
     rmSync(root, { recursive: true, force: true })
   }
 })
 
 test('native styling setup leaves Tailwind uninstalled', async () => {
-  const root = mkdtempSync(join(tmpdir(), 'nuxt-native-style-'))
+  const root = mkdtempSync(join(tmpdir(), 'vastx-native-style-'))
   try {
     writeFileSync(join(root, 'package.json'), '{}')
     await ensureProjectSetup(root, { styling: 'native', plugins: [] }, [])

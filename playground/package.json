@@ -1,11 +1,11 @@
 {
-  "name": "nuxt-native-playground",
+  "name": "vastx-native-playground",
   "private": true,
   "type": "module",
   "scripts": {
     "dev": "nuxi dev",
-    "native:init": "node ../bin/nuxt-native.mjs init",
-    "native:dev:ios": "node ../bin/nuxt-native.mjs dev ios",
-    "native:dev:android": "node ../bin/nuxt-native.mjs dev android"
+    "native:init": "node ../bin/vastx-native.mjs init",
+    "native:dev:ios": "node ../bin/vastx-native.mjs dev ios",
+    "native:dev:android": "node ../bin/vastx-native.mjs dev android"
   }
 }

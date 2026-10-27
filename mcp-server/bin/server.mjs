@@ -13,10 +13,10 @@ import { loadNativeConfig } from '../../cli/lib/load-config.mjs'
 import { listDevices } from '../src/devices.mjs'
 import { findApk, installApk, launchApp, readLogs } from '../src/android.mjs'
 
-const server = new McpServer({ name: 'nuxt-native', version: '0.1.0' })
+const server = new McpServer({ name: 'vastx-native', version: '0.1.0' })
 
 /**
- * Every tool here calls into the exact same functions the real `nuxt-native`
+ * Every tool here calls into the exact same functions the real `vastx-native`
  * CLI uses (cli/commands/*.mjs) — nothing reimplemented, so behavior can
  * never drift between "a human runs the CLI" and "an agent drives it
  * through this server". process.chdir() is required since those functions
@@ -47,8 +47,8 @@ server.registerTool(
   'doctor',
   {
     title: 'Check project configuration',
-    description: 'Runs nuxt-native\'s doctor checks (the same ones `nuxt-native doctor` runs) against a project — catches misconfiguration this framework has actually hit before, then delegates to `ns info` for Xcode/Android SDK/JDK checks.',
-    inputSchema: { projectPath: z.string().describe('Absolute path to the nuxt-native project root') }
+    description: 'Runs vastx-native\'s doctor checks (the same ones `vastx-native doctor` runs) against a project — catches misconfiguration this framework has actually hit before, then delegates to `ns info` for Xcode/Android SDK/JDK checks.',
+    inputSchema: { projectPath: z.string().describe('Absolute path to the vastx-native project root') }
   },
   async ({ projectPath }) => {
     const { output, exitCode } = await runInProject(projectPath, doctor)
@@ -60,11 +60,11 @@ server.registerTool(
   'build',
   {
     title: 'Build the native app',
-    description: 'Runs `nuxt-native build <platform>` — regenerates the JS bundle and produces a native APK/IPA. Android only is confirmed working; iOS is unverified in this framework so far.',
+    description: 'Runs `vastx-native build <platform>` — regenerates the JS bundle and produces a native APK/IPA. Android only is confirmed working; iOS is unverified in this framework so far.',
     inputSchema: {
-      projectPath: z.string().describe('Absolute path to the nuxt-native project root'),
+      projectPath: z.string().describe('Absolute path to the vastx-native project root'),
       platform: z.enum(['ios', 'android']),
-      release: z.boolean().optional().describe('Pass --release (needs NUXT_NATIVE_KEYSTORE_* env vars set for a signed Android release)')
+      release: z.boolean().optional().describe('Pass --release (needs VASTX_NATIVE_KEYSTORE_* env vars set for a signed Android release)')
     }
   },
   async ({ projectPath, platform, release }) => {
@@ -77,7 +77,7 @@ server.registerTool(
   'lint',
   {
     title: 'Lint routes',
-    description: 'Runs `nuxt-native lint` — cross-references every navigate() call under app/ against the real route manifest, catching a typo\'d route name before a build.',
+    description: 'Runs `vastx-native lint` — cross-references every navigate() call under app/ against the real route manifest, catching a typo\'d route name before a build.',
     inputSchema: { projectPath: z.string() }
   },
   async ({ projectPath }) => {
@@ -90,7 +90,7 @@ server.registerTool(
   'clean',
   {
     title: 'Clean build artifacts',
-    description: 'Runs `nuxt-native clean` — removes platforms/, hooks/, and cached build artifacts.',
+    description: 'Runs `vastx-native clean` — removes platforms/, hooks/, and cached build artifacts.',
     inputSchema: { projectPath: z.string() }
   },
   async ({ projectPath }) => {
@@ -103,7 +103,7 @@ server.registerTool(
   'analyze',
   {
     title: 'Analyze bundle size',
-    description: 'Runs `nuxt-native analyze <platform>` — produces a bundle size report (report/report.html, report/stats.json) under the project root.',
+    description: 'Runs `vastx-native analyze <platform>` — produces a bundle size report (report/report.html, report/stats.json) under the project root.',
     inputSchema: { projectPath: z.string(), platform: z.enum(['ios', 'android']) }
   },
   async ({ projectPath, platform }) => {
@@ -116,7 +116,7 @@ server.registerTool(
   'version',
   {
     title: 'Show or bump the app release version',
-    description: 'Runs `nuxt-native version` — show the current version/versionCode, bump it (major/minor/patch, syncs to App_Resources/Android/app.gradle and App_Resources/iOS/Info.plist if present), or just re-sync the current values.',
+    description: 'Runs `vastx-native version` — show the current version/versionCode, bump it (major/minor/patch, syncs to App_Resources/Android/app.gradle and App_Resources/iOS/Info.plist if present), or just re-sync the current values.',
     inputSchema: {
       projectPath: z.string(),
       action: z.enum(['show', 'bump', 'sync']).default('show'),

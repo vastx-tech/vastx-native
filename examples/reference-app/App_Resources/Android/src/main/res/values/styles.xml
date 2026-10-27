@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- nuxt-native: generated from native.theme in nuxt.config — edit there, or delete this line to take this file over -->
+<!-- vastx-native: generated from native.theme in nuxt.config — edit there, or delete this line to take this file over -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
     <style name="AppThemeBase" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="toolbarStyle">@style/NativeScriptToolbarStyle</item>

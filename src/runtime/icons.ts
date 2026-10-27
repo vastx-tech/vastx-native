@@ -54,7 +54,7 @@ const cache = new WeakMap<IconifyJSON, Map<string, string>>()
 function buildIconSvg(iconSet: IconifyJSON, name: string, options: ResolveIconSvgOptions): string {
   const iconData = getIconData(iconSet, name)
   if (!iconData) {
-    throw new Error(`[nuxt-native] Icon "${name}" was not found in the given icon set.`)
+    throw new Error(`[vastx-native] Icon "${name}" was not found in the given icon set.`)
   }
 
   // Never pass `undefined`: it replaces iconToSVG's own default and makes

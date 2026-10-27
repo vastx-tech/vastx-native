@@ -1,7 +1,7 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 
-const XML_MARKER = '<!-- nuxt-native: dev-only cleartext exception for useWebSocket() -->'
+const XML_MARKER = '<!-- vastx-native: dev-only cleartext exception for useWebSocket() -->'
 
 const NETWORK_SECURITY_CONFIG = `<?xml version="1.0" encoding="utf-8"?>
 ${XML_MARKER}
@@ -57,7 +57,7 @@ function writeIfNotManaged(path, content) {
     // A file already exists here that we didn't write (a project that had
     // its own debug manifest/network config before adopting
     // useWebSocket()) — don't clobber real user content silently.
-    console.log(`[nuxt-native] ${path} already exists and isn't nuxt-native-managed — skipping (merge the cleartext exception in by hand if useWebSocket() needs it)`)
+    console.log(`[vastx-native] ${path} already exists and isn't vastx-native-managed — skipping (merge the cleartext exception in by hand if useWebSocket() needs it)`)
     return
   }
   mkdirSync(join(path, '..'), { recursive: true })

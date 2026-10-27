@@ -16,21 +16,21 @@ export function activate(context: vscode.ExtensionContext): void {
     context.subscriptions.push(vscode.commands.registerCommand(command, wrapErrors(handler)))
   }
 
-  register('nuxtNative.create', commandCreate)
-  register('nuxtNative.init', () => runInTerminal('Nuxt Native', getWorkspaceRoot(), 'npx nuxt-native init'))
-  register('nuxtNative.run', commandRun)
-  register('nuxtNative.hotRestart', () => requireSession().hotRestart())
-  register('nuxtNative.forceRestart', () => requireSession().forceRestart())
-  register('nuxtNative.toggleWatcher', () => requireSession().toggleWatcher())
-  register('nuxtNative.stop', () => requireSession().stop())
-  register('nuxtNative.build', commandBuild)
-  register('nuxtNative.doctor', () => runInTerminal('Nuxt Native: Doctor', getWorkspaceRoot(), 'npx nuxt-native doctor'))
-  register('nuxtNative.analyze', commandAnalyze)
-  register('nuxtNative.lint', () => runInTerminal('Nuxt Native: Lint', getWorkspaceRoot(), 'npx nuxt-native lint'))
-  register('nuxtNative.clean', () => runInTerminal('Nuxt Native: Clean', getWorkspaceRoot(), 'npx nuxt-native clean'))
-  register('nuxtNative.keystoreCreate', commandKeystoreCreate)
-  register('nuxtNative.selectDevice', commandSelectDevice)
-  register('nuxtNative.statusBarClicked', commandStatusBarClicked)
+  register('vastxNative.create', commandCreate)
+  register('vastxNative.init', () => runInTerminal('VastX Native', getWorkspaceRoot(), 'npx vastx-native init'))
+  register('vastxNative.run', commandRun)
+  register('vastxNative.hotRestart', () => requireSession().hotRestart())
+  register('vastxNative.forceRestart', () => requireSession().forceRestart())
+  register('vastxNative.toggleWatcher', () => requireSession().toggleWatcher())
+  register('vastxNative.stop', () => requireSession().stop())
+  register('vastxNative.build', commandBuild)
+  register('vastxNative.doctor', () => runInTerminal('VastX Native: Doctor', getWorkspaceRoot(), 'npx vastx-native doctor'))
+  register('vastxNative.analyze', commandAnalyze)
+  register('vastxNative.lint', () => runInTerminal('VastX Native: Lint', getWorkspaceRoot(), 'npx vastx-native lint'))
+  register('vastxNative.clean', () => runInTerminal('VastX Native: Clean', getWorkspaceRoot(), 'npx vastx-native clean'))
+  register('vastxNative.keystoreCreate', commandKeystoreCreate)
+  register('vastxNative.selectDevice', commandSelectDevice)
+  register('vastxNative.statusBarClicked', commandStatusBarClicked)
 }
 
 export function deactivate(): void {
@@ -50,7 +50,7 @@ function getSession(): DevSession {
 function requireSession(): DevSession {
   const session = getSession()
   if (session.getState() === 'stopped') {
-    throw new Error('No dev session is running — use "Nuxt Native: Run..." first.')
+    throw new Error('No dev session is running — use "VastX Native: Run..." first.')
   }
   return session
 }
@@ -72,7 +72,7 @@ async function commandCreate(): Promise<void> {
   if (!parentDir) return
 
   const appIdFlag = appId ? ` --app-id ${appId}` : ''
-  runInTerminal('Nuxt Native: Create', parentDir, `npx github:vastx-tech/nuxt-native create ${name}${appIdFlag} --platforms ${platforms.join(',')}`)
+  runInTerminal('VastX Native: Create', parentDir, `npx github:vastx-tech/vastx-native create ${name}${appIdFlag} --platforms ${platforms.join(',')}`)
 
   const openAfter = await vscode.window.showInformationMessage(
     `Creating ${name}... open it once it's done?`,
@@ -104,13 +104,13 @@ async function commandBuild(): Promise<void> {
   if (!release) return
 
   const releaseFlag = release === 'Release' ? ' --release' : ''
-  runInTerminal('Nuxt Native: Build', getWorkspaceRoot(), `npx nuxt-native build ${platform}${releaseFlag}`)
+  runInTerminal('VastX Native: Build', getWorkspaceRoot(), `npx vastx-native build ${platform}${releaseFlag}`)
 }
 
 async function commandAnalyze(): Promise<void> {
   const platform = await pickPlatform()
   if (!platform) return
-  runInTerminal('Nuxt Native: Analyze', getWorkspaceRoot(), `npx nuxt-native analyze ${platform}`)
+  runInTerminal('VastX Native: Analyze', getWorkspaceRoot(), `npx vastx-native analyze ${platform}`)
 }
 
 async function commandKeystoreCreate(): Promise<void> {
@@ -119,7 +119,7 @@ async function commandKeystoreCreate(): Promise<void> {
   // keytool's own password/identity prompts are interactive — this runs
   // in a real terminal for the same reason devSession does, so those
   // prompts work exactly like running it by hand.
-  runInTerminal('Nuxt Native: Keystore', getWorkspaceRoot(), `npx nuxt-native keystore create --alias ${alias}`)
+  runInTerminal('VastX Native: Keystore', getWorkspaceRoot(), `npx vastx-native keystore create --alias ${alias}`)
 }
 
 async function commandSelectDevice(): Promise<void> {
@@ -141,7 +141,7 @@ async function commandStatusBarClicked(): Promise<void> {
     { label: '$(refresh) Force Restart (rebuild native)', action: 'forceRestart' },
     { label: '$(eye) Toggle File Watcher', action: 'toggleWatcher' },
     { label: '$(debug-stop) Stop', action: 'stop' }
-  ], { placeHolder: 'Nuxt Native dev session' })
+  ], { placeHolder: 'VastX Native dev session' })
 
   if (!action) return
   session[action.action as 'hotRestart' | 'forceRestart' | 'toggleWatcher' | 'stop']()
@@ -170,7 +170,7 @@ async function pickDevice(platform: 'ios' | 'android'): Promise<string | undefin
     const devices = await listDevices(getWorkspaceRoot())
     const relevant = devices.filter(d => d.platform.toLowerCase() === platform)
     if (relevant.length === 0) {
-      vscode.window.showWarningMessage(`No connected ${platform} devices/emulators found — nuxt-native dev will let ns pick automatically.`)
+      vscode.window.showWarningMessage(`No connected ${platform} devices/emulators found — vastx-native dev will let ns pick automatically.`)
       return undefined
     }
     const picked = await vscode.window.showQuickPick(

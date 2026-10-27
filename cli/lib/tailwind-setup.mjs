@@ -16,14 +16,14 @@ export async function ensureTailwindSetup(projectRoot) {
   if (isResolvable('tailwindcss/package.json', projectRoot)) {
     const { version } = JSON.parse(readFileSync(requireFromProject.resolve('tailwindcss/package.json'), 'utf8'))
     if (!version.startsWith('3.')) {
-      throw new Error('[nuxt-native] This integration requires Tailwind v3. Run npm install -D tailwindcss@^3.4.19. Tailwind v4 needs a different pipeline; your config has not been changed.')
+      throw new Error('[vastx-native] This integration requires Tailwind v3. Run npm install -D tailwindcss@^3.4.19. Tailwind v4 needs a different pipeline; your config has not been changed.')
     }
   }
 
   const missing = ['tailwindcss@^3.4.19', 'postcss@^8.5.28']
     .filter(spec => !isResolvable(spec.split('@')[0], projectRoot))
   if (missing.length) {
-    console.log(`[nuxt-native] Installing styling dependencies: ${missing.join(', ')}`)
+    console.log(`[vastx-native] Installing styling dependencies: ${missing.join(', ')}`)
     await run('npm', ['install', '--save-dev', ...missing], { cwd: projectRoot })
   }
 
@@ -43,9 +43,9 @@ export async function ensureTailwindSetup(projectRoot) {
       const backup = `${configPath}.before-native-tailwind`
       if (!existsSync(backup)) copyFileSync(configPath, backup)
       writeFileSync(configPath, postcssConfig())
-      console.log(`[nuxt-native] Upgraded generated PostCSS config (backup: ${backup})`)
-    } else if (!source.includes('nuxt-native/cli/lib/native-tailwind.cjs')) {
-      console.warn(`[nuxt-native] Custom PostCSS config preserved: ${configPath}. Add require('nuxt-native/cli/lib/native-tailwind.cjs')() after Tailwind for native units. See STYLING.md.`)
+      console.log(`[vastx-native] Upgraded generated PostCSS config (backup: ${backup})`)
+    } else if (!source.includes('vastx-native/cli/lib/native-tailwind.cjs')) {
+      console.warn(`[vastx-native] Custom PostCSS config preserved: ${configPath}. Add require('vastx-native/cli/lib/native-tailwind.cjs')() after Tailwind for native units. See STYLING.md.`)
     }
   }
 }

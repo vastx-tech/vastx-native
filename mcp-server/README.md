@@ -1,19 +1,19 @@
-# nuxt-native MCP server
+# vastx-native MCP server
 
-An [MCP](https://modelcontextprotocol.io) server exposing `nuxt-native`'s
+An [MCP](https://modelcontextprotocol.io) server exposing `vastx-native`'s
 dev workflow — build, doctor, lint, clean, analyze, device listing,
 install+launch, log reading — as tools, so any MCP-speaking AI agent
 (Claude Code, Claude Desktop, or anything else that speaks MCP) can drive
-a nuxt-native project directly instead of shelling out to the CLI blind.
+a vastx-native project directly instead of shelling out to the CLI blind.
 
-Every tool calls the exact same functions the real `nuxt-native` CLI uses
+Every tool calls the exact same functions the real `vastx-native` CLI uses
 (`cli/commands/*.mjs`) — nothing here is reimplemented, so there's no way
 for "what the CLI does" and "what an agent driving it through this server
 does" to drift apart.
 
 ## Setup
 
-The server ships with `nuxt-native`; its SDK dependencies are optional. Install
+The server ships with `vastx-native`; its SDK dependencies are optional. Install
 them in your app before starting the server:
 
 ```bash
@@ -23,7 +23,7 @@ npm install -D @modelcontextprotocol/sdk zod
 From a project with the framework installed, the entry point is:
 
 ```bash
-npx nuxt-native mcp
+npx vastx-native mcp
 ```
 
 Configure your agent to launch this command from your app's project directory.
@@ -36,18 +36,18 @@ For Claude Code, add to `.mcp.json` in the app project:
 ```json
 {
   "mcpServers": {
-    "nuxt-native": {
+    "vastx-native": {
       "command": "npx",
-      "args": ["nuxt-native", "mcp"]
+      "args": ["vastx-native", "mcp"]
     }
   }
 }
 ```
 
 If a Windows host cannot launch npx directly, use `"command": "cmd"` and
-`"args": ["/c", "npx", "nuxt-native", "mcp"]`. If your host runs outside
+`"args": ["/c", "npx", "vastx-native", "mcp"]`. If your host runs outside
 the app directory, set its working directory or use `node` with the absolute
-path to the app's `node_modules/nuxt-native/bin/nuxt-native.mjs` and `mcp`.
+path to the app's `node_modules/vastx-native/bin/vastx-native.mjs` and `mcp`.
 Configuration formats vary between agents.
 
 Project tools take an absolute `projectPath` argument (the app to act on);
@@ -58,19 +58,19 @@ require ADB. This stdio development server is separate from the mobile app's
 `useMcpClient()` HTTP client.
 
 For development of this server itself, install dependencies at the repository
-root and run `node bin/nuxt-native.mjs mcp`. The old
+root and run `node bin/vastx-native.mjs mcp`. The old
 `node mcp-server/bin/server.mjs` entry point also remains available.
 
 ## Tools
 
 | Tool | Wraps | Notes |
 |---|---|---|
-| `doctor` | `nuxt-native doctor` | Project checks + delegates to `ns info` |
-| `build` | `nuxt-native build <platform>` | `release: true` for a signed build (needs `NUXT_NATIVE_KEYSTORE_*` env vars already set) |
-| `lint` | `nuxt-native lint` | Catches a `navigate()` call to a route that doesn't exist |
-| `clean` | `nuxt-native clean` | Removes `platforms/`, `hooks/`, cached artifacts |
-| `analyze` | `nuxt-native analyze <platform>` | Bundle size report |
-| `version` | `nuxt-native version [show\|bump\|sync]` | Show/bump/sync the release version — see the main README's "App release versioning" section |
+| `doctor` | `vastx-native doctor` | Project checks + delegates to `ns info` |
+| `build` | `vastx-native build <platform>` | `release: true` for a signed build (needs `VASTX_NATIVE_KEYSTORE_*` env vars already set) |
+| `lint` | `vastx-native lint` | Catches a `navigate()` call to a route that doesn't exist |
+| `clean` | `vastx-native clean` | Removes `platforms/`, `hooks/`, cached artifacts |
+| `analyze` | `vastx-native analyze <platform>` | Bundle size report |
+| `version` | `vastx-native version [show\|bump\|sync]` | Show/bump/sync the release version — see the main README's "App release versioning" section |
 | `list_devices` | `ns device --json` | Every connected device/emulator NativeScript can see |
 | `install_and_launch` | `adb install` + `adb shell am start` | Android only. Uses the most recently built APK under `platforms/android/app/build/outputs/apk/<buildType>/` |
 | `read_logs` | `adb logcat -d` | Optional substring filter — for checking whether a just-deployed build crashed |
@@ -101,7 +101,7 @@ allowlist and launches the packaged CLI from a temporary app. It verifies tool
 discovery and a read-only version call without requiring Android tooling.
 
 ```bash
-node test-client.mjs /absolute/path/to/a/nuxt-native/project
+node test-client.mjs /absolute/path/to/a/vastx-native/project
 # add --full to also exercise install_and_launch/read_logs
 # (needs a real connected Android device and an existing build)
 ```

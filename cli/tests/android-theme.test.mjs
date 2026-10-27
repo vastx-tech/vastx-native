@@ -7,7 +7,7 @@ import { ensureAndroidMinSdk, ensureAndroidTheme, isDark } from '../lib/android-
 import { nuxtConfig, packageJson } from '../lib/scaffold-templates.mjs'
 
 function withProject(fn) {
-  const root = mkdtempSync(join(tmpdir(), 'nuxt-native-theme-'))
+  const root = mkdtempSync(join(tmpdir(), 'vastx-native-theme-'))
   try {
     return fn(root, rel => join(root, 'App_Resources/Android/src/main/res', rel))
   } finally {
@@ -102,7 +102,7 @@ test('platforms/android goes on PATH only when Windows skips the current directo
 
 test('the Gradle daemon is stopped after builds on small machines only, unless configured', async () => {
   const { stopGradleDaemonIfLowMemory } = await import('../lib/gradle-tuning.mjs')
-  const root = mkdtempSync(join(tmpdir(), 'nuxt-native-gradle-'))
+  const root = mkdtempSync(join(tmpdir(), 'vastx-native-gradle-'))
   try {
     mkdirSync(join(root, 'platforms/android'), { recursive: true })
     writeFileSync(join(root, 'platforms/android/gradlew.bat'), '')
@@ -128,7 +128,7 @@ test('the Gradle daemon is stopped after builds on small machines only, unless c
 test('marked blocks keep the file\'s line endings and skip unchanged writes', async () => {
   const { ensureMarkedBlock } = await import('../lib/marked-block.mjs')
   const { statSync, utimesSync } = await import('node:fs')
-  const root = mkdtempSync(join(tmpdir(), 'nuxt-native-block-'))
+  const root = mkdtempSync(join(tmpdir(), 'vastx-native-block-'))
   try {
     const file = join(root, 'app.gradle')
     writeFileSync(file, '// mine\r\nandroid {}\r\n')

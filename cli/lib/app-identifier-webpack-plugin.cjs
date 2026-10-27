@@ -29,13 +29,13 @@ const path = require('node:path')
  * actually knows the answer is simpler than splitting it across a
  * pre-build guess and a post-build correction.)
  */
-class NuxtNativeAppIdentifierPlugin {
+class VastXNativeAppIdentifierPlugin {
   constructor(options) {
     this.appId = options.appId
   }
 
   apply(compiler) {
-    compiler.hooks.afterEmit.tap('NuxtNativeAppIdentifierPlugin', (compilation) => {
+    compiler.hooks.afterEmit.tap('VastXNativeAppIdentifierPlugin', (compilation) => {
       const bundleAsset = Object.keys(compilation.assets).find(name => /^bundle\.m?js$/.test(name))
       if (!bundleAsset) return // no "bundle" entry in this compilation (e.g. a non-app build) — nothing to do
 
@@ -49,4 +49,4 @@ class NuxtNativeAppIdentifierPlugin {
   }
 }
 
-module.exports = NuxtNativeAppIdentifierPlugin
+module.exports = VastXNativeAppIdentifierPlugin

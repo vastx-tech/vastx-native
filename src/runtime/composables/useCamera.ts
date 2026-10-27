@@ -36,7 +36,7 @@ export function useCamera() {
     const camera = await loadPlugin()
     const granted = await requestPermission()
     if (!granted) {
-      throw new Error('[nuxt-native] Camera permission was denied.')
+      throw new Error('[vastx-native] Camera permission was denied.')
     }
 
     const asset = await camera.takePicture({
@@ -58,7 +58,7 @@ async function loadPlugin() {
     return await import('@nativescript/camera')
   } catch {
     throw new Error(
-      '[nuxt-native] useCamera() requires the "@nativescript/camera" plugin.\n'
+      '[vastx-native] useCamera() requires the "@nativescript/camera" plugin.\n'
       + 'Install it with: npm install @nativescript/camera'
     )
   }

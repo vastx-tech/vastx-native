@@ -5,8 +5,8 @@ const path = require('node:path')
 const { loadVueCompiler } = require('./vue-compiler.cjs')
 
 // Loaders execute per-file, potentially many times per build (and again on
-// every incremental rebuild in `nuxt-native dev`) — read+parse
-// .nuxt-native/auto-imports.json once per webpack process, not per file.
+// every incremental rebuild in `vastx-native dev`) — read+parse
+// .vastx-native/auto-imports.json once per webpack process, not per file.
 // A dev-mode restart (the normal way to pick up a newly added composable
 // file, same workflow as any other new-file case in this CLI) naturally
 // clears this cache along with the whole process.
@@ -14,7 +14,7 @@ let cachedEntries = null
 let cachedFromPath = null
 
 function loadEntries(rootContext) {
-  const entriesPath = path.join(rootContext, '.nuxt-native', 'auto-imports.json')
+  const entriesPath = path.join(rootContext, '.vastx-native', 'auto-imports.json')
   if (cachedEntries && cachedFromPath === entriesPath) return cachedEntries
 
   if (!fs.existsSync(entriesPath)) {
@@ -38,7 +38,7 @@ function loadEntries(rootContext) {
  * regex scan matched a name anywhere in the SFC, template included, and
  * only recognised single-line `import`s and plain `const x` declarations.
  * So a component with a `placeholder` or `size` prop used in its template
- * got `import { placeholder } from 'nuxt-native/runtime/style.js'`
+ * got `import { placeholder } from 'vastx-native/runtime/style.js'`
  * injected into `<script setup>` — and a setup binding beats a prop in the
  * template. That only showed up in release builds: in dev, vue-loader
  * compiles the template from the untouched file (prop wins); in
@@ -124,7 +124,7 @@ module.exports = function autoImportLoader(source) {
       // Importing would make the template see the helper instead of the
       // prop; skipping would leave the script with an undefined name.
       // Fail the build rather than pick either silently.
-      this.emitError(new Error(`nuxt-native auto-imports: \`${name}\` is both a prop of this component and an auto-imported helper used in its script. Rename the prop, or import the helper explicitly under another name: import { ${name} as ${name}Helper } from ${JSON.stringify(byName.get(name).from)}`))
+      this.emitError(new Error(`vastx-native auto-imports: \`${name}\` is both a prop of this component and an auto-imported helper used in its script. Rename the prop, or import the helper explicitly under another name: import { ${name} as ${name}Helper } from ${JSON.stringify(byName.get(name).from)}`))
       continue
     }
     missing.add(name)
@@ -134,12 +134,12 @@ module.exports = function autoImportLoader(source) {
     .filter(name => byName.has(name) && !declared.has(name) && !missing.has(name))
   if (templateUsed.length > 0) {
     if (!descriptor.scriptSetup) {
-      this.emitWarning(new Error(`nuxt-native auto-imports: ${templateUsed.map(n => `\`${n}\``).join(', ')} used in the template of a component without <script setup> — imports in a plain <script> aren't visible to the template. Expose them from the component (e.g. methods) or switch to <script setup>.`))
+      this.emitWarning(new Error(`vastx-native auto-imports: ${templateUsed.map(n => `\`${n}\``).join(', ')} used in the template of a component without <script setup> — imports in a plain <script> aren't visible to the template. Expose them from the component (e.g. methods) or switch to <script setup>.`))
     } else if (!bindings) {
       // Couldn't work out the component's own bindings (see
       // componentBindings), so any of these could be a prop. Never risk
       // shadowing one: ask for an explicit import instead.
-      this.emitWarning(new Error(`nuxt-native auto-imports: couldn't analyse this component's props, so ${templateUsed.map(n => `\`${n}\``).join(', ')} (used only in the template) were not auto-imported. Import them explicitly if they're helpers rather than props.`))
+      this.emitWarning(new Error(`vastx-native auto-imports: couldn't analyse this component's props, so ${templateUsed.map(n => `\`${n}\``).join(', ')} (used only in the template) were not auto-imported. Import them explicitly if they're helpers rather than props.`))
     } else {
       templateUsed.filter(name => !(name in bindings)).forEach(name => missing.add(name))
     }
@@ -187,7 +187,7 @@ function analyzeScript(compiler, code, isTs) {
 function componentBindings(compiler, descriptor) {
   try {
     return compiler.compileScript(descriptor, {
-      id: 'nuxt-native-auto-import',
+      id: 'vastx-native-auto-import',
       fs: {
         fileExists: file => fs.existsSync(file),
         readFile: file => fs.readFileSync(file, 'utf8')
@@ -205,7 +205,7 @@ function templateReferences(compiler, descriptor, filename) {
   const { code } = compiler.compileTemplate({
     source: template.content,
     filename,
-    id: 'nuxt-native-auto-import',
+    id: 'vastx-native-auto-import',
     compilerOptions: { prefixIdentifiers: true }
   })
   return new Set([...code.matchAll(/\b_ctx\.([A-Za-z_$][\w$]*)/g)].map(match => match[1]))

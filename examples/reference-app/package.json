@@ -1,16 +1,16 @@
 {
-  "name": "nuxt-native-reference-app",
+  "name": "vastx-native-reference-app",
   "private": true,
-  "main": ".nuxt-native/app.js",
+  "main": ".vastx-native/app.js",
   "scripts": {
-    "native:init": "nuxt-native init",
-    "native:dev:ios": "nuxt-native dev ios",
-    "native:dev:android": "nuxt-native dev android",
-    "native:build:ios": "nuxt-native build ios --release",
-    "native:build:android": "nuxt-native build android --release"
+    "native:init": "vastx-native init",
+    "native:dev:ios": "vastx-native dev ios",
+    "native:dev:android": "vastx-native dev android",
+    "native:build:ios": "vastx-native build ios --release",
+    "native:build:android": "vastx-native build android --release"
   },
   "dependencies": {
-    "nuxt-native": "file:../..",
+    "vastx-native": "file:../..",
     "nativescript-vue": "^3.1.2",
     "@nativescript/core": "^9.1.2",
     "nuxt": "^4.0.0",

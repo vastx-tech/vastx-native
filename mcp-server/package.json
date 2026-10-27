@@ -1,16 +1,16 @@
 {
-  "name": "nuxt-native-mcp-server",
+  "name": "vastx-native-mcp-server",
   "version": "0.1.0",
   "private": true,
-  "description": "MCP server exposing nuxt-native's dev workflow (build, doctor, devices, logs, lint) as tools, so any MCP-speaking AI agent can drive it directly.",
+  "description": "MCP server exposing vastx-native's dev workflow (build, doctor, devices, logs, lint) as tools, so any MCP-speaking AI agent can drive it directly.",
   "type": "module",
   "bin": {
-    "nuxt-native-mcp-server": "./bin/server.mjs"
+    "vastx-native-mcp-server": "./bin/server.mjs"
   },
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/vastx-tech/nuxt-native"
+    "url": "https://github.com/vastx-tech/vastx-native"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.30.0",

@@ -20,7 +20,7 @@ const preservedProperties = new Set([
 ])
 
 module.exports = () => ({
-  postcssPlugin: 'nuxt-native-tailwind',
+  postcssPlugin: 'vastx-native-tailwind',
   async OnceExit(root, { result }) {
     const preserved = new Map()
     root.walkDecls((decl) => {
@@ -37,7 +37,7 @@ module.exports = () => ({
       if (preservedProperties.has(decl.prop)) {
         preserved.set(decl, decl.prop)
         // Upstream keeps custom properties and still normalizes their values.
-        decl.prop = `--nuxt-native-preserve-${decl.prop}`
+        decl.prop = `--vastx-native-preserve-${decl.prop}`
       }
     })
     try {

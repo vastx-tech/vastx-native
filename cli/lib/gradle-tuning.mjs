@@ -3,7 +3,7 @@ import { totalmem } from 'node:os'
 import { spawnSync } from 'node:child_process'
 import { join } from 'node:path'
 
-const MARKER = '# nuxt-native: memory settings tuned for this machine'
+const MARKER = '# vastx-native: memory settings tuned for this machine'
 
 /**
  * @nativescript/android's own scaffolded `platforms/android/gradle.properties`
@@ -82,7 +82,7 @@ const LOW_MEMORY_BYTES = 12 * 1024 ** 3
  * Gradle leaves its daemon running after a build so the next one starts
  * faster — about 1 GB held indefinitely. On a small machine that's the
  * difference between a usable desktop and a crash: seen on a real 8 GB
- * laptop (7.2 GB usable), where an idle daemon left by `nuxt-native build`
+ * laptop (7.2 GB usable), where an idle daemon left by `vastx-native build`
  * held 1.1 GB of committed memory while VS Code and Chrome ran out.
  *
  * `native.android.stopGradleDaemon` decides: true always stops it, false
@@ -108,7 +108,7 @@ export function stopGradleDaemonIfLowMemory(projectRoot, setting, { total = tota
     ? spawn(`"${wrapper}" --stop`, { cwd: androidDir, shell: true, stdio: 'ignore' })
     : spawn(wrapper, ['--stop'], { cwd: androidDir, stdio: 'ignore' })
   if (result.status === 0) {
-    console.log('[nuxt-native] Stopped the Gradle daemon to free memory (native.android.stopGradleDaemon: false keeps it running)')
+    console.log('[vastx-native] Stopped the Gradle daemon to free memory (native.android.stopGradleDaemon: false keeps it running)')
   }
   return result.status === 0
 }

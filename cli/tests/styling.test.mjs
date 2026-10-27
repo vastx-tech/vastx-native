@@ -44,7 +44,7 @@ test('Tailwind spacing, typography, colors and max sizes compile to native value
   assert.equal(declarations(result, '.text-indigo-600').color, '#4f46e5')
   assert.equal(declarations(result, '.bg-slate-100')['background-color'], '#f1f5f9')
   assert.equal(declarations(result, '.flex-col')['flex-direction'], 'column')
-  assert.doesNotMatch(result.css, /\drem\b|--nuxt-native-preserve/)
+  assert.doesNotMatch(result.css, /\drem\b|--vastx-native-preserve/)
   // gap/gap-x/gap-y are disabled outright (removed from TAILWIND_CORE_PLUGINS),
   // not just filtered post-generation — confirmed on a real Android device that
   // a non-zero row-gap silently drops a <FlexboxLayout>'s last child from the
@@ -71,11 +71,11 @@ test('counter starter emits usable native spacing and excludes browser-only util
 })
 
 function fixture(t) {
-  const dir = mkdtempSync(join(tmpdir(), 'nuxt-native-styling-'))
+  const dir = mkdtempSync(join(tmpdir(), 'vastx-native-styling-'))
   mkdirSync(join(dir, 'node_modules'))
   // Only link declared packages, not the whole repository's dependency tree.
-  for (const name of ['tailwindcss', 'postcss', 'nuxt-native']) {
-    symlinkSync(name === 'nuxt-native' ? root : join(root, 'node_modules', name), join(dir, 'node_modules', name), process.platform === 'win32' ? 'junction' : 'dir')
+  for (const name of ['tailwindcss', 'postcss', 'vastx-native']) {
+    symlinkSync(name === 'vastx-native' ? root : join(root, 'node_modules', name), join(dir, 'node_modules', name), process.platform === 'win32' ? 'junction' : 'dir')
   }
   writeFileSync(join(dir, 'package.json'), JSON.stringify({ name: 'styling-fixture', private: true }))
   t.after(() => rmSync(dir, { recursive: true, force: true }))

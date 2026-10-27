@@ -2,9 +2,9 @@ import type { NativeScriptConfig } from '@nativescript/core'
 
 export default {
   id: "com.example.referenceapp",
-  appPath: '.nuxt-native',
+  appPath: '.vastx-native',
   appResourcesPath: 'App_Resources',
-  main: ".nuxt-native/app.js",
+  main: ".vastx-native/app.js",
   bundlerConfigPath: "webpack.config.cjs",
   webpackConfigPath: "webpack.config.cjs",
   android: {

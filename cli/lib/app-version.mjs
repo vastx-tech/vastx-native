@@ -31,13 +31,13 @@ export function writeVersion(projectRoot, { version, versionCode }) {
 export function bumpSemver(version, part) {
   const match = /^(\d+)\.(\d+)\.(\d+)$/.exec(version)
   if (!match) {
-    throw new Error(`[nuxt-native] "${version}" isn't a plain major.minor.patch version — bump it by hand instead.`)
+    throw new Error(`[vastx-native] "${version}" isn't a plain major.minor.patch version — bump it by hand instead.`)
   }
   let [major, minor, patch] = match.slice(1).map(Number)
   if (part === 'major') { major++; minor = 0; patch = 0 }
   else if (part === 'minor') { minor++; patch = 0 }
   else if (part === 'patch') { patch++ }
-  else { throw new Error(`[nuxt-native] Usage: nuxt-native version bump <major|minor|patch>`) }
+  else { throw new Error(`[vastx-native] Usage: vastx-native version bump <major|minor|patch>`) }
   return `${major}.${minor}.${patch}`
 }
 
@@ -45,7 +45,7 @@ export function bumpSemver(version, part) {
  * Writes android.defaultConfig.versionCode/versionName into
  * App_Resources/Android/app.gradle — confirmed a real, standard Gradle
  * `apply from:` include (build.gradle: `apply from: pathToAppGradle`),
- * not something nuxt-native invented, and defaultConfig's version fields
+ * not something vastx-native invented, and defaultConfig's version fields
  * are AGP's own documented mechanism for overriding the manifest's
  * android:versionCode/versionName attributes. Deliberately not editing
  * the manifest directly: platforms/android/app/src/main/AndroidManifest.xml
@@ -54,7 +54,7 @@ export function bumpSemver(version, part) {
  * fallback and gradle.properties tuning both patch App_Resources/platform-
  * scaffolding files instead), so a direct manifest edit wouldn't survive.
  *
- * Idempotent via a marker block: reruns replace only nuxt-native's own
+ * Idempotent via a marker block: reruns replace only vastx-native's own
  * section, never anything else a project's app.gradle might already have.
  */
 function syncAndroidVersion(projectRoot, version, versionCode) {

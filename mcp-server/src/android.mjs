@@ -4,7 +4,7 @@ import { join } from 'node:path'
 
 /**
  * Resolves adb the same way a real terminal session in this project would:
- * $ANDROID_HOME/platform-tools/adb first (matches how nuxt-native's own
+ * $ANDROID_HOME/platform-tools/adb first (matches how vastx-native's own
  * CLI/doctor checks for it), falling back to a bare `adb` on PATH.
  */
 function adbPath() {

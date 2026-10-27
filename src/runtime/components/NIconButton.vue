@@ -9,7 +9,7 @@
   `resolveIconSvg()` (src/runtime/icons.ts), e.g.:
 
     import lucideIcons from '@iconify-json/lucide/icons.json'
-    import { resolveIconSvg } from 'nuxt-native/runtime/icons.js'
+    import { resolveIconSvg } from 'vastx-native/runtime/icons.js'
     const heartIcon = resolveIconSvg(lucideIcons, 'heart', { color: '#ff0000' })
     <NIconButton :icon="heartIcon" @tap="..." />
 

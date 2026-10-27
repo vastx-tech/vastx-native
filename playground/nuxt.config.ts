@@ -4,7 +4,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
 
   native: {
-    appId: 'org.nuxtnative.playground',
-    appName: 'Nuxt Native Playground'
+    appId: 'org.vastxnative.playground',
+    appName: 'VastX Native Playground'
   }
 })

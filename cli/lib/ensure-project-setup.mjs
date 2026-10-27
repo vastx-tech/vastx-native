@@ -13,7 +13,7 @@ import { existsSync, readFileSync } from 'node:fs'
  * Every idempotent native-project patch this framework needs, run on
  * every init/dev/build — not just init. Previously these only ran inside
  * `init()`, which meant a project only stayed correctly configured if
- * someone remembered to rerun `nuxt-native init` after adding a
+ * someone remembered to rerun `vastx-native init` after adding a
  * dependency (ours or a third-party plugin's) later in the project's
  * life. Every function called here is already safe to call on every
  * single invocation (marker-comment-gated, or a plain existence check —
@@ -30,35 +30,35 @@ export async function ensureProjectSetup(projectRoot, config, platforms) {
     || Boolean(packageJson.devDependencies?.tailwindcss || packageJson.dependencies?.tailwindcss)
   if (styling === 'tailwind' || (styling === 'auto' && hasTailwind)) {
     await ensureTailwindSetup(projectRoot)
-    console.log('[nuxt-native] Tailwind config ready (tailwind.config.cjs/postcss.config.cjs/app/app.css)')
+    console.log('[vastx-native] Tailwind config ready (tailwind.config.cjs/postcss.config.cjs/app/app.css)')
   }
 
   if (platforms.includes('android')) {
     ensureGradleMemorySettings(join(projectRoot, 'platforms'), platforms)
-    console.log('[nuxt-native] Tuned Gradle memory settings for this machine')
+    console.log('[vastx-native] Tuned Gradle memory settings for this machine')
 
     ensureManifestNamespaceFix(join(projectRoot, 'platforms'), platforms)
 
     ensureWebSocketDependency(projectRoot)
-    console.log('[nuxt-native] Added OkHttp (for useWebSocket()) to App_Resources/Android/app.gradle')
+    console.log('[vastx-native] Added OkHttp (for useWebSocket()) to App_Resources/Android/app.gradle')
 
     ensureNetworkSecurityConfig(projectRoot)
-    console.log('[nuxt-native] Added a debug-only cleartext exception for useWebSocket() dev servers (127.0.0.1/10.0.2.2/localhost)')
+    console.log('[vastx-native] Added a debug-only cleartext exception for useWebSocket() dev servers (127.0.0.1/10.0.2.2/localhost)')
 
     ensureAndroidMinSdk(projectRoot, config.android?.minSdk)
 
     const skipped = ensureAndroidTheme(projectRoot, config.theme)
     if (config.theme?.background) {
-      console.log('[nuxt-native] Android theme generated from native.theme (window background, status bar, accent)')
+      console.log('[vastx-native] Android theme generated from native.theme (window background, status bar, accent)')
       for (const file of skipped) {
-        console.warn(`[nuxt-native] Left App_Resources/Android/src/main/res/${file} alone: it's your own file, not one generated from native.theme.`)
+        console.warn(`[vastx-native] Left App_Resources/Android/src/main/res/${file} alone: it's your own file, not one generated from native.theme.`)
       }
     }
   }
 
   if (platforms.includes('ios')) {
     ensureIosInfoPlistKeys(projectRoot)
-    console.log('[nuxt-native] Verified App_Resources/iOS/Info.plist has the keys Xcode needs (CFBundleExecutable, ...)')
+    console.log('[vastx-native] Verified App_Resources/iOS/Info.plist has the keys Xcode needs (CFBundleExecutable, ...)')
   }
 
   await runPluginSetup(projectRoot, config.plugins, platforms)

@@ -7,7 +7,7 @@ interface CartLine {
   quantity: number
 }
 
-// Auto-imported like composables/utils: nuxt-native reads this file's real
+// Auto-imported like composables/utils: vastx-native reads this file's real
 // exports, so `useCartStore` is available everywhere even though the file
 // is called `cart.ts`.
 export const useCartStore = defineStore('cart', () => {
@@ -31,7 +31,7 @@ export const useCartStore = defineStore('cart', () => {
 
   return { lines, itemCount, totalInCents, addItem, removeItem }
 }, {
-  // Saved on the device and restored at startup (nuxt-native's Pinia
+  // Saved on the device and restored at startup (vastx-native's Pinia
   // plugin), so the cart survives the app being closed.
   persist: true
 })

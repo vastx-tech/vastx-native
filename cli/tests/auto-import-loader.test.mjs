@@ -9,16 +9,16 @@ const require = createRequire(import.meta.url)
 const autoImportLoader = require('../lib/auto-import-loader.cjs')
 
 const ENTRIES = [
-  { name: 'placeholder', from: 'nuxt-native/runtime/style.js' },
-  { name: 'size', from: 'nuxt-native/runtime/style.js' },
-  { name: 'padding', from: 'nuxt-native/runtime/style.js' },
+  { name: 'placeholder', from: 'vastx-native/runtime/style.js' },
+  { name: 'size', from: 'vastx-native/runtime/style.js' },
+  { name: 'padding', from: 'vastx-native/runtime/style.js' },
   { name: 'formatPrice', from: '/app/utils/formatPrice.ts' },
   { name: 'useCart', from: '/app/composables/useCart.ts' }
 ]
 
-const root = mkdtempSync(join(tmpdir(), 'nuxt-native-auto-import-'))
-mkdirSync(join(root, '.nuxt-native'))
-writeFileSync(join(root, '.nuxt-native/auto-imports.json'), JSON.stringify(ENTRIES))
+const root = mkdtempSync(join(tmpdir(), 'vastx-native-auto-import-'))
+mkdirSync(join(root, '.vastx-native'))
+writeFileSync(join(root, '.vastx-native/auto-imports.json'), JSON.stringify(ENTRIES))
 after(() => rmSync(root, { recursive: true, force: true }))
 
 function run(source, resourcePath = join(root, 'app/components/Thing.vue'), resourceQuery = '?vue&type=script&setup=true&lang.ts') {
@@ -128,7 +128,7 @@ const hint = placeholder({ color: 'gray' })
 
 test('project files contribute their real exports, not their filename', async () => {
   const { collectAutoImportEntries, renderAutoImportTypes } = await import('../lib/auto-imports.mjs')
-  const project = mkdtempSync(join(tmpdir(), 'nuxt-native-exports-'))
+  const project = mkdtempSync(join(tmpdir(), 'vastx-native-exports-'))
   try {
     mkdirSync(join(project, 'app/utils'), { recursive: true })
     mkdirSync(join(project, 'app/composables'), { recursive: true })
@@ -155,21 +155,21 @@ export { hidden as revealed }
     assert.match(dts, /interface ComponentCustomProperties \{[\s\S]*readonly fadeIn:/)
 
     assert.doesNotMatch(dts, /declare module 'pinia'/)
-    assert.match(renderAutoImportTypes([], [], { pinia: true }), /declare module 'pinia'[\s\S]*persist\?: boolean \| import\('nuxt-native\/runtime\/pinia-persist\.js'\)\.PersistOptions/)
+    assert.match(renderAutoImportTypes([], [], { pinia: true }), /declare module 'pinia'[\s\S]*persist\?: boolean \| import\('vastx-native\/runtime\/pinia-persist\.js'\)\.PersistOptions/)
     assert.ok(entries.some(e => e.name === 'useStorage'))
 
-    const withComponents = renderAutoImportTypes([], [{ tag: 'NTabs', specifier: 'nuxt-native/runtime/components/NTabs.vue' }])
-    assert.match(withComponents, /interface GlobalComponents \{\s*NTabs: typeof import\("nuxt-native\/runtime\/components\/NTabs\.vue"\)\['default'\]/)
+    const withComponents = renderAutoImportTypes([], [{ tag: 'NTabs', specifier: 'vastx-native/runtime/components/NTabs.vue' }])
+    assert.match(withComponents, /interface GlobalComponents \{\s*NTabs: typeof import\("vastx-native\/runtime\/components\/NTabs\.vue"\)\['default'\]/)
   } finally {
     rmSync(project, { recursive: true, force: true })
   }
 })
 
 test('a default export is imported under the file name', () => {
-  const project = mkdtempSync(join(tmpdir(), 'nuxt-native-default-'))
+  const project = mkdtempSync(join(tmpdir(), 'vastx-native-default-'))
   try {
-    mkdirSync(join(project, '.nuxt-native'))
-    writeFileSync(join(project, '.nuxt-native/auto-imports.json'), JSON.stringify([{ name: 'useTheme', from: '/app/composables/useTheme.ts', export: 'default' }]))
+    mkdirSync(join(project, '.vastx-native'))
+    writeFileSync(join(project, '.vastx-native/auto-imports.json'), JSON.stringify([{ name: 'useTheme', from: '/app/composables/useTheme.ts', export: 'default' }]))
     const output = autoImportLoader.call({ rootContext: project, resourcePath: join(project, 'app/a.ts'), resourceQuery: '' }, 'export const t = useTheme()\n')
     assert.match(output, /import \{ default as useTheme \} from "\/app\/composables\/useTheme\.ts";/)
   } finally {

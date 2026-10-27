@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- nuxt-native: dev-only cleartext exception for useWebSocket() -->
+<!-- vastx-native: dev-only cleartext exception for useWebSocket() -->
 <network-security-config>
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="false">127.0.0.1</domain>

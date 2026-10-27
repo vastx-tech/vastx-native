@@ -123,7 +123,7 @@ export function useMcpClient(): McpClient {
     const result = await send('initialize', {
       protocolVersion: PROTOCOL_VERSION,
       capabilities: {},
-      clientInfo: { name: 'nuxt-native-app', version: '0.1.0' }
+      clientInfo: { name: 'vastx-native-app', version: '0.1.0' }
     }) as { serverInfo?: { name: string, version: string } }
 
     serverInfo.value = result?.serverInfo ?? null
