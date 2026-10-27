@@ -1,4 +1,9 @@
-# VastX Native
+<h1>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="./branding/vastx-native-logo-dark.svg">
+    <img src="./branding/vastx-native-logo.svg" alt="VastX Native" width="360">
+  </picture>
+</h1>
 
 **Real native Android and iOS apps, written the Nuxt way.** File-based pages,
 auto-imports and Vue single-file components, rendered as genuine native views:

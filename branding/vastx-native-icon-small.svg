@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144 144" width="512" height="512" role="img" aria-label="VastX Native">
+<title>VastX Native</title>
+<defs><mask id="vxis-m" maskUnits="userSpaceOnUse" x="0" y="0" width="128" height="128"><rect width="128" height="128" fill="#fff"/><circle cx="66.25" cy="12.68" r="11.1" fill="#000"/><circle cx="34.3" cy="93.7" r="16.07" fill="#000"/></mask><linearGradient id="vxis-g" gradientUnits="userSpaceOnUse" x1="25.11" y1="102.89" x2="102.89" y2="25.11"><stop offset="0" stop-color="#22D3EE"/><stop offset="0.5" stop-color="#6366F1"/><stop offset="1" stop-color="#A855F7"/></linearGradient>
+<radialGradient id="vxis-core" cx="0.38" cy="0.34" r="0.72"><stop offset="0" stop-color="#F0FDFF"/><stop offset="0.45" stop-color="#67E8F9"/><stop offset="1" stop-color="#2563EB"/></radialGradient>
+<radialGradient id="vxis-p" cx="0.38" cy="0.34" r="0.75"><stop offset="0" stop-color="#FDF4FF"/><stop offset="0.5" stop-color="#F0ABFC"/><stop offset="1" stop-color="#C026D3"/></radialGradient><radialGradient id="vxis-bg" cx="0.5" cy="0.3" r="0.85"><stop offset="0" stop-color="#1B2147"/><stop offset="1" stop-color="#070B18"/></radialGradient></defs>
+<rect width="144" height="144" rx="34" fill="url(#vxis-bg)"/>
+<g transform="translate(13.6 15.59) scale(0.91)"><g fill="url(#vxis-g)" mask="url(#vxis-m)"><path fill-rule="evenodd" d="M9 64a55 55 0 1 0 110 0a55 55 0 1 0 -110 0ZM13.05 67.14a47.81 47.81 0 1 0 95.62 0a47.81 47.81 0 1 0 -95.62 0Z"/></g><circle cx="34.3" cy="93.7" r="13" fill="url(#vxis-core)"/><circle cx="66.25" cy="12.68" r="8.03" fill="url(#vxis-p)"/></g>
+</svg>

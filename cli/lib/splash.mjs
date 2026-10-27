@@ -1,13 +1,11 @@
 import { existsSync, mkdirSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
-import { createCanvas, drawNGlyph, encodePng, fillCircle } from './png.mjs'
+import { MARK_ASPECT, createCanvas, drawMark, encodePng } from './png.mjs'
 
-// A deep indigo, deliberately distinct from Nuxt's own brand green (this is
-// a third-party framework, not an official Nuxt project) and from
-// NativeScript's default template blue/white — so a fresh install reads as
-// "VastX Native," not as either of the frameworks it's built from.
-const BRAND_BACKGROUND = [49, 46, 129, 255] // indigo-900
-const BRAND_FOREGROUND = [255, 255, 255, 255]
+// The VastX Native brand navy (branding/vastx-native-icon.svg), so a fresh
+// install reads as "VastX Native," not as Nuxt or NativeScript's template.
+const BRAND_BACKGROUND = [11, 16, 32, 255] // #0B1020
+const PHI = (1 + Math.sqrt(5)) / 2
 
 // Exact pixel dimensions of the files `ns platform add` generates from
 // NativeScript's own project template (@nativescript/template-hello-world-ts)
@@ -129,26 +127,13 @@ function ensureAndroidLauncherIconFallback(androidRes) {
   }
 }
 
-/** Same badge mark as the splash logo, opaque and square — a launcher icon
- * has no separate background layer to composite onto like the splash
- * screen does. */
+/** The small app-icon tile (branding/vastx-native-icon-small.svg): core, outer
+ * ring and planet on brand navy, since launchers show it at roughly 48dp. Opaque —
+ * a launcher icon has no separate background layer to composite onto. */
 function renderLauncherIcon(width, height) {
   const buf = createCanvas(width, height, BRAND_BACKGROUND)
-  const cx = width / 2
-  const cy = height / 2
-  const diameter = Math.min(width, height) * 0.85
-  fillCircle(buf, width, height, cx, cy, diameter / 2, BRAND_FOREGROUND)
-
-  const glyphHeight = diameter * 0.5
-  const glyphWidth = glyphHeight * 0.72
-  drawNGlyph(
-    buf,
-    width,
-    height,
-    { x: cx - glyphWidth / 2, y: cy - glyphHeight / 2, width: glyphWidth, height: glyphHeight },
-    BRAND_BACKGROUND
-  )
-
+  const markWidth = (Math.min(width, height) / PHI) * PHI ** 0.25
+  drawMark(buf, width, height, { cx: width / 2, cy: height / 2, markWidth, simple: true })
   return encodePng(width, height, buf)
 }
 
@@ -156,26 +141,13 @@ function renderBackground(width, height) {
   return encodePng(width, height, createCanvas(width, height, BRAND_BACKGROUND))
 }
 
-/** A centered circular badge with a simple "N" mark, on transparent — the
- * logo layer sits on top of the (opaque) background layer in both
- * NativeScript's Android layer-list and its iOS storyboard. */
+/** The mark alone, centred on transparent — the logo layer sits on top of the
+ * (opaque) background layer in both NativeScript's Android layer-list and its
+ * iOS storyboard. */
 function renderLogoBadge(width, height) {
   const buf = createCanvas(width, height, [0, 0, 0, 0])
-  const cx = width / 2
-  const cy = height / 2
-  const diameter = height * 0.9
-  fillCircle(buf, width, height, cx, cy, diameter / 2, BRAND_FOREGROUND)
-
-  const glyphHeight = diameter * 0.5
-  const glyphWidth = glyphHeight * 0.72
-  drawNGlyph(
-    buf,
-    width,
-    height,
-    { x: cx - glyphWidth / 2, y: cy - glyphHeight / 2, width: glyphWidth, height: glyphHeight },
-    BRAND_BACKGROUND
-  )
-
+  const markWidth = Math.min(width, height * 0.9 * MARK_ASPECT)
+  drawMark(buf, width, height, { cx: width / 2, cy: height / 2, markWidth })
   return encodePng(width, height, buf)
 }
 

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-1.31 -5.67 130.62 134.98" width="512" height="512" role="img" aria-label="VastX Native">
+<title>VastX Native</title>
+<defs><mask id="vxmw-m" maskUnits="userSpaceOnUse" x="0" y="0" width="128" height="128"><rect width="128" height="128" fill="#fff"/><circle cx="66.25" cy="12.68" r="11.1" fill="#000"/><circle cx="34.3" cy="93.7" r="16.07" fill="#000"/></mask></defs>
+<g fill="#FFFFFF" mask="url(#vxmw-m)"><path fill-rule="evenodd" d="M18.96 88.04a21 21 0 1 0 42 0a21 21 0 1 0 -42 0ZM20.02 88.87a19.11 19.11 0 1 0 38.21 0a19.11 19.11 0 1 0 -38.21 0Z"/><path fill-rule="evenodd" d="M15.15 78.85a34 34 0 1 0 68 0a34 34 0 1 0 -68 0ZM16.88 80.19a30.93 30.93 0 1 0 61.87 0a30.93 30.93 0 1 0 -61.87 0Z"/><path fill-rule="evenodd" d="M9 64a55 55 0 1 0 110 0a55 55 0 1 0 -110 0ZM11.79 66.17a50.04 50.04 0 1 0 100.08 0a50.04 50.04 0 1 0 -100.08 0Z"/></g><circle cx="34.3" cy="93.7" r="13" fill="#FFFFFF"/><circle cx="66.25" cy="12.68" r="8.03" fill="#FFFFFF"/>
+</svg>

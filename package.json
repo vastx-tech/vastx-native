@@ -57,7 +57,7 @@
     "native:dev:android": "node ./bin/vastx-native.mjs dev android",
     "lint": "eslint .",
     "typecheck": "vue-tsc --noEmit",
-    "test": "node --test cli/tests/release.test.mjs cli/tests/icons.test.mjs cli/tests/android-theme.test.mjs cli/tests/auto-import-loader.test.mjs cli/tests/styling.test.mjs cli/tests/ios-infoplist-fix.test.mjs cli/tests/lighter.test.mjs mcp-server/packaged-cli.test.mjs",
+    "test": "node --test cli/tests/release.test.mjs cli/tests/icons.test.mjs cli/tests/android-theme.test.mjs cli/tests/auto-import-loader.test.mjs cli/tests/styling.test.mjs cli/tests/ios-infoplist-fix.test.mjs cli/tests/lighter.test.mjs cli/tests/splash.test.mjs mcp-server/packaged-cli.test.mjs",
     "test:mcp": "node --test mcp-server/packaged-cli.test.mjs",
     "test:styling": "node --test cli/tests/styling.test.mjs",
     "test:ios-infoplist": "node --test cli/tests/ios-infoplist-fix.test.mjs"

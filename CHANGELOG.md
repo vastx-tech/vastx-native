@@ -6,6 +6,20 @@ whatever is on `main` when you install.
 
 ## Unreleased
 
+### Added
+
+- A VastX Native logo: a core with rings expanding from one point and a
+  planet on the outer orbit. `branding/` has the SVG set (light, dark,
+  one-colour, stacked, app icon, small icon) and PNG and favicon exports.
+
+### Changed
+
+- The splash screen `init` generates now shows the logo on the brand navy
+  background, instead of a white "N" badge on indigo. Existing apps get it
+  the next time `vastx-native init` runs. The fallback Android launcher icon
+  uses the small version of the logo; it is still only written where an app
+  has no `icon.png`, so your own icon is never replaced.
+
 ## 3.0.0 - 2026-10-27
 
 ### Changed
