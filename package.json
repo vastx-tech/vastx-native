@@ -1,6 +1,6 @@
 {
   "name": "vastx-native",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "Build real native Android and iOS apps with Nuxt and Vue: file-based pages, auto-imports and native views, no WebView. Powered by NativeScript.",
   "keywords": [
     "nuxt",

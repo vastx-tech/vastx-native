@@ -6,6 +6,8 @@ whatever is on `main` when you install.
 
 ## Unreleased
 
+## 3.1.0 - 2026-10-27
+
 ### Added
 
 - A VastX Native logo: a core with rings expanding from one point and a
