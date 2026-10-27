@@ -167,11 +167,11 @@ and fixed along the way — see the status table's iOS-specific rows.
    `<NFlex>`, since NativeScript's grid is configured via `columns`/`rows`
    template-string properties, not a CSS property at all. Needs its own
    translation layer, not just an allowlist tweak.
-9. iOS needs the same real-device confirmation Android has. The package is
-   on npm as `vastx-native` (formerly `nuxt-native`, up to v2.2.1) and on
-   GitHub as tagged releases. Both install paths use the prebuilt `dist/`
-   committed with each release, so installing an app never compiles the
-   framework.
+9. iOS needs the same real-device confirmation Android has. Releases are
+   tagged on GitHub (`github:vastx-tech/vastx-native#vX.Y.Z`); `vastx-native`
+   isn't on npm yet (the old `nuxt-native` package is, up to v2.2.1). Each
+   release commits a prebuilt `dist/`, so installing an app never compiles
+   the framework.
 10. `useWebSocket()`'s iOS implementation needs the same on-device
     confirmation every other iOS path here still needs (Android is now
     fully verified on real hardware).

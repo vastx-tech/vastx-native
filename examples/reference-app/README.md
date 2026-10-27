@@ -10,8 +10,8 @@ Lives inside the framework's own repo, and depends on `vastx-native` via
 `"file:../.."` rather than `github:vastx-tech/vastx-native` — so it always
 builds against the exact local code in this checkout, not a published
 snapshot. A real project outside this repo should depend on it the way
-`vastx-native create` generates (a tagged `github:vastx-tech/vastx-native#vX.Y.Z`
-spec), or on the npm package (`npm install vastx-native`).
+`vastx-native create` generates: a tagged `github:vastx-tech/vastx-native#vX.Y.Z`
+spec.
 
 ## Folder structure
 

@@ -17,7 +17,7 @@ projects without leaving VS Code.
 
 ## Requirements
 
-A VastX Native project (`npx vastx-native@latest create my-app`). The extension
+A VastX Native project (`npx github:vastx-tech/vastx-native create my-app`). The extension
 activates when a workspace contains a `nativescript.config.ts`.
 
 ## Why a real terminal, not a background process

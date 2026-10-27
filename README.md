@@ -31,7 +31,7 @@ const count = useStorage('count', 0)
 ```
 
 ```bash
-npx vastx-native@latest create my-app --app-id com.example.myapp
+npx github:vastx-tech/vastx-native create my-app --app-id com.example.myapp
 cd my-app
 npx vastx-native dev android   # or: ios
 ```
@@ -118,7 +118,7 @@ One command, empty directory to a project with dependencies installed and
 native platforms wired up:
 
 ```bash
-npx vastx-native@latest create my-app --app-id com.example.myapp
+npx github:vastx-tech/vastx-native create my-app --app-id com.example.myapp
 cd my-app
 npx vastx-native dev android   # or: ios
 ```
@@ -135,8 +135,7 @@ install — `ns platform add` will tell you clearly if either is missing.
 
 ### Versions and updating
 
-Each release is published to [npm](https://www.npmjs.com/package/vastx-native)
-and tagged on GitHub (`v3.0.0`, ...), with notes on the
+Each release is tagged on GitHub (`v3.0.0`, ...), with notes on the
 [releases page](https://github.com/vastx-tech/vastx-native/releases) and in
 [CHANGELOG.md](./CHANGELOG.md). `create` pins new projects to the release that
 created them: their package.json gets
@@ -144,7 +143,7 @@ created them: their package.json gets
 with the same framework code. To update, change the tag and reinstall:
 
 ```bash
-npm install vastx-native@3.0.0   # or from GitHub: npm install github:vastx-tech/vastx-native#v3.0.0
+npm install github:vastx-tech/vastx-native#v3.0.0
 npx vastx-native init   # re-applies generated config for the new version
 ```
 
@@ -155,7 +154,7 @@ differently. Installing without a tag (`github:vastx-tech/vastx-native`) follows
 Adding it to an **existing** Nuxt project instead:
 
 ```bash
-npm install vastx-native nativescript-vue @nativescript/core
+npm install github:vastx-tech/vastx-native#v3.0.0 nativescript-vue @nativescript/core
 ```
 
 ```ts
@@ -188,12 +187,12 @@ auto-imports and its `N*` components. In an existing project, add
 ### Coming from `nuxt-native`?
 
 VastX Native was called `nuxt-native` up to v2.2.1. Starting with v3.0.0 it is
-published as `vastx-native`. To move an existing app over:
+released as `vastx-native`. To move an existing app over:
 
 1. Swap the package:
 
    ```bash
-   npm uninstall nuxt-native && npm install vastx-native
+   npm uninstall nuxt-native && npm install github:vastx-tech/vastx-native#v3.0.0
    ```
 
 2. In your app, find and replace `nuxt-native` with `vastx-native` in every file
