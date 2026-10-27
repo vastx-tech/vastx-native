@@ -1,4 +1,4 @@
-export interface NuxtNativeOptions {
+export interface VastXNativeOptions {
   /**
    * Reverse-DNS application identifier, e.g. "com.acme.myapp".
    * Used when scaffolding the native iOS/Android projects.
@@ -16,8 +16,8 @@ export interface NuxtNativeOptions {
   /** Styling setup: native CSS, Tailwind, or automatic detection for existing projects. */
   styling?: 'native' | 'tailwind' | 'auto'
   /**
-   * npm package names of third-party nuxt-native plugins to run native
-   * setup for. Each listed package is resolved for a `"./nuxt-native"`
+   * npm package names of third-party vastx-native plugins to run native
+   * setup for. Each listed package is resolved for a `"./vastx-native"`
    * subpath export — if present, its `ensure(projectRoot, platforms)`
    * function is called on every `init`/`dev`/`build` (idempotent, same as
    * this framework's own `ensureWebSocketDependency`/
@@ -52,9 +52,9 @@ export interface NuxtNativeOptions {
 
 declare module '@nuxt/schema' {
   interface NuxtConfig {
-    native?: Partial<NuxtNativeOptions>
+    native?: Partial<VastXNativeOptions>
   }
   interface NuxtOptions {
-    native: NuxtNativeOptions
+    native: VastXNativeOptions
   }
 }

@@ -5,7 +5,7 @@ import { createCanvas, drawNGlyph, encodePng, fillCircle } from './png.mjs'
 // A deep indigo, deliberately distinct from Nuxt's own brand green (this is
 // a third-party framework, not an official Nuxt project) and from
 // NativeScript's default template blue/white — so a fresh install reads as
-// "Nuxt Native," not as either of the frameworks it's built from.
+// "VastX Native," not as either of the frameworks it's built from.
 const BRAND_BACKGROUND = [49, 46, 129, 255] // indigo-900
 const BRAND_FOREGROUND = [255, 255, 255, 255]
 
@@ -58,7 +58,7 @@ const IOS_LOGO_SIZES = {
 
 /**
  * Overwrites just the splash-screen images inside an already-scaffolded
- * App_Resources (from `ns platform add`) with nuxt-native's own branding,
+ * App_Resources (from `ns platform add`) with vastx-native's own branding,
  * instead of NativeScript's default wordmark-on-white. Everything else in
  * App_Resources (manifests, icons, Info.plist, Gradle files, ...) is left
  * untouched — deliberately narrow, matching the same reasoning as not
@@ -94,7 +94,7 @@ export function applySplashBranding(appResourcesPath, platforms) {
 }
 
 /**
- * `nuxt-native init` never runs `ns create` — it calls `ns platform add
+ * `vastx-native init` never runs `ns create` — it calls `ns platform add
  * android` directly against a project with no App_Resources at all (see
  * `init.mjs`). Reading the real CLI's source
  * (`android-project-service.js`'s `ensureConfigurationFileInAppResources`)

@@ -2,7 +2,7 @@ import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
 import { test } from 'node:test'
 import { nextVersion, stampChangelog, unreleasedNotes } from '../../scripts/release.mjs'
-import { NUXT_NATIVE_DEPENDENCY_SPEC, packageJson } from '../lib/scaffold-templates.mjs'
+import { VASTX_NATIVE_DEPENDENCY_SPEC, packageJson } from '../lib/scaffold-templates.mjs'
 
 const { version } = JSON.parse(readFileSync(new URL('../../package.json', import.meta.url), 'utf8'))
 
@@ -45,8 +45,8 @@ test('stamping moves Unreleased under the version and keeps an empty Unreleased'
 })
 
 test('new projects are pinned to this version\'s release tag', () => {
-  assert.equal(NUXT_NATIVE_DEPENDENCY_SPEC, `github:vastx-tech/nuxt-native#v${version}`)
-  assert.equal(JSON.parse(packageJson('demo')).dependencies['nuxt-native'], NUXT_NATIVE_DEPENDENCY_SPEC)
+  assert.equal(VASTX_NATIVE_DEPENDENCY_SPEC, `github:vastx-tech/vastx-native#v${version}`)
+  assert.equal(JSON.parse(packageJson('demo')).dependencies['vastx-native'], VASTX_NATIVE_DEPENDENCY_SPEC)
 })
 
 test('Windows (CRLF) line endings work and are kept', () => {

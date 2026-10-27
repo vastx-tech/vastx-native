@@ -1,10 +1,35 @@
 # Changelog
 
 Releases are git tags on GitHub. Pin one in your app's package.json with
-`"nuxt-native": "github:vastx-tech/nuxt-native#vX.Y.Z"`. Without a tag, you get
+`"vastx-native": "github:vastx-tech/vastx-native#vX.Y.Z"`. Without a tag, you get
 whatever is on `main` when you install.
 
 ## Unreleased
+
+### Changed
+
+- **Breaking:** the framework is now **VastX Native**, published on npm as
+  `vastx-native`. The `nuxt-native` package is no longer updated. The README's
+  "Coming from `nuxt-native`?" section has the migration steps. What was renamed:
+  - The package and the Nuxt module: `modules: ['vastx-native']`. The
+    `native: { ... }` options are unchanged.
+  - The CLI is now `vastx-native` (e.g. `npx vastx-native dev android`).
+  - The generated folder is now `.vastx-native/`. Existing apps reference the old
+    folder in `nativescript.config.ts`, package.json `"main"`, `tsconfig.json` and
+    `webpack.config.cjs`.
+  - The comments marking CLI-managed blocks in `App_Resources/` now start with
+    `vastx-native:`. Blocks still marked `nuxt-native:` are not recognized, and the
+    CLI adds a second copy.
+  - Imports from `nuxt-native/runtime/...` are now `vastx-native/runtime/...`. The
+    `NuxtNativeOptions` type is now `VastXNativeOptions`.
+  - Keystore environment variables are renamed from `NUXT_NATIVE_KEYSTORE_*` to
+    `VASTX_NATIVE_KEYSTORE_*`.
+  - The VS Code extension's command IDs are renamed from `nuxtNative.*` to `vastxNative.*`.
+  - The MCP server is now `vastx-native-mcp-server`.
+  - Plugins that hook into native setup must export a `"./vastx-native"` subpath
+    instead of `"./nuxt-native"`.
+  - The GitHub repo is now `vastx-tech/vastx-native` and the docs are at
+    https://native.vastx.in. Old GitHub links redirect.
 
 ## 2.2.1 - 2026-10-15
 

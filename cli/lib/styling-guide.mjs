@@ -1,5 +1,5 @@
 export function stylingGuide() {
-  return `# Styling a Nuxt Native app
+  return `# Styling a VastX Native app
 
 This is a native UI, not a browser. Use Tailwind v3 for supported static styles,
 component props for built-in variants, and numeric native styles for dynamic values.
@@ -63,7 +63,7 @@ the adapter; use a supported inline native style for properties outside its cont
 ## Build and existing projects
 
 Keep Tailwind on v3. postcss.config.cjs runs Tailwind then
-require('nuxt-native/cli/lib/native-tailwind.cjs')(). This wrapper runs the official
+require('vastx-native/cli/lib/native-tailwind.cjs')(). This wrapper runs the official
 adapter exactly once, after generation. The adapter is a framework dependency,
 so NativeScript does not auto-discover its separate Tailwind v4 Webpack pipeline.
 If the app already directly depends on @nativescript/tailwind, remove that direct
@@ -132,7 +132,7 @@ drop_console in production), so logging that worked in debug prints nothing.
 }
 
 export function stylingAgentInstructions() {
-  return `# Working on this Nuxt Native app
+  return `# Working on this VastX Native app
 
 Read STYLING.md before creating or changing UI. Use its native layout and spacing
 conventions. This project uses Tailwind v3 with the framework's bundled NativeScript

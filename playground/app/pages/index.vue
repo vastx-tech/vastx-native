@@ -1,5 +1,5 @@
 <template>
-  <NPage title="Nuxt Native">
+  <NPage title="VastX Native">
     <StackLayout style="padding: 20">
       <Label text="Running on:" style="color: gray" />
       <Label :text="`${device.os} ${device.osVersion} (${device.model})`" style="font-size: 18; font-weight: bold" />

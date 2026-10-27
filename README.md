@@ -1,13 +1,13 @@
-# Nuxt Native
+# VastX Native
 
 **Real native Android and iOS apps, written the Nuxt way.** File-based pages,
 auto-imports and Vue single-file components, rendered as genuine native views:
 no WebView, no DOM.
 
-[![Release](https://img.shields.io/github/v/release/vastx-tech/nuxt-native)](https://github.com/vastx-tech/nuxt-native/releases)
+[![Release](https://img.shields.io/github/v/release/vastx-tech/vastx-native)](https://github.com/vastx-tech/vastx-native/releases)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 
-**[Docs & landing page](https://nuxt-native.vastx.in)** ·
+**[Docs & landing page](https://native.vastx.in)** ·
 **[Quickstart](#quickstart)** ·
 **[Changelog](./CHANGELOG.md)**
 
@@ -31,9 +31,9 @@ const count = useStorage('count', 0)
 ```
 
 ```bash
-npx nuxt-native@latest create my-app --app-id com.example.myapp
+npx vastx-native@latest create my-app --app-id com.example.myapp
 cd my-app
-npx nuxt-native dev android   # or: ios
+npx vastx-native dev android   # or: ios
 ```
 
 **What you get**
@@ -59,7 +59,7 @@ is tested on real devices; iOS runs on real hardware but has had less testing.
 Capacitor-style tools ship your Nuxt app as compiled web code running inside
 a native WebView. That's a fine, fast path to "app-store distributable," but
 it isn't native UI — you still get DOM rendering, web-style scrolling, and a
-WebView's performance ceiling. Nuxt Native takes the harder path on purpose:
+WebView's performance ceiling. VastX Native takes the harder path on purpose:
 Vue's renderer targets real native views directly, so the result looks,
 scrolls, and performs like a native app because it *is* one — the same
 tradeoff React Native and Flutter made, applied to the Nuxt/Vue ecosystem.
@@ -89,7 +89,7 @@ tradeoff React Native and Flutter made, applied to the Nuxt/Vue ecosystem.
   `class="flex-col items-center bg-indigo-600 rounded-lg p-3"` on an
   `<NFlex>` or any UI kit component works the same way it would on web. See
   [UI kit](#ui-kit) below for what's in scope and why.
-- **Pinia, as a first-class citizen** — install `pinia` and `nuxt-native
+- **Pinia, as a first-class citizen** — install `pinia` and `vastx-native
   init`/`create` wires `createPinia()` into the app bootstrap automatically.
   See [State management (Pinia)](#state-management-pinia) below.
 - **`useMcpClient()`** — apps can connect to [MCP](https://modelcontextprotocol.io)
@@ -102,7 +102,7 @@ tradeoff React Native and Flutter made, applied to the Nuxt/Vue ecosystem.
   native code in any of its packages, and NativeScript already provides
   the `fetch` it needs) — Realtime needs one extra adapter. See
   [Third-party backends (Supabase)](#third-party-backends-supabase) below.
-- **The `nuxt-native` CLI** generates the on-device bootstrap from
+- **The `vastx-native` CLI** generates the on-device bootstrap from
   `app/pages` and hands off to NativeScript's own toolchain (`ns run`,
   `ns build`) for the actual native compile/deploy/LiveSync — that's
   battle-tested infrastructure we orchestrate rather than replace. It also
@@ -118,9 +118,9 @@ One command, empty directory to a project with dependencies installed and
 native platforms wired up:
 
 ```bash
-npx nuxt-native@latest create my-app --app-id com.example.myapp
+npx vastx-native@latest create my-app --app-id com.example.myapp
 cd my-app
-npx nuxt-native dev android   # or: ios
+npx vastx-native dev android   # or: ios
 ```
 
 `create` scaffolds `nuxt.config.ts` and a starter `app/pages/index.vue`
@@ -128,40 +128,40 @@ with a reactive counter and increment/decrement buttons, runs `npm install`,
 writes `nativescript.config.ts`, and runs `ns platform add` for each
 platform (`--platforms ios,android`, defaults to both) — including
 replacing the splash screen NativeScript's own template generates with
-Nuxt Native's own branding, so a fresh install doesn't launch showing
+VastX Native's own branding, so a fresh install doesn't launch showing
 someone else's logo. Verified end-to-end from a clean directory via `npx`;
 the only step it can't do for you is provide an actual Android SDK / Xcode
 install — `ns platform add` will tell you clearly if either is missing.
 
 ### Versions and updating
 
-Each release is published to [npm](https://www.npmjs.com/package/nuxt-native)
-and tagged on GitHub (`v2.2.1`, ...), with notes on the
-[releases page](https://github.com/vastx-tech/nuxt-native/releases) and in
+Each release is published to [npm](https://www.npmjs.com/package/vastx-native)
+and tagged on GitHub (`v3.0.0`, ...), with notes on the
+[releases page](https://github.com/vastx-tech/vastx-native/releases) and in
 [CHANGELOG.md](./CHANGELOG.md). `create` pins new projects to the release that
 created them: their package.json gets
-`"nuxt-native": "github:vastx-tech/nuxt-native#v2.1.0"`, so every machine builds
+`"vastx-native": "github:vastx-tech/vastx-native#v3.0.0"`, so every machine builds
 with the same framework code. To update, change the tag and reinstall:
 
 ```bash
-npm install github:vastx-tech/nuxt-native#v2.2.1   # or, from npm: npm install nuxt-native@2.2.1
-npx nuxt-native init   # re-applies generated config for the new version
+npm install vastx-native@3.0.0   # or from GitHub: npm install github:vastx-tech/vastx-native#v3.0.0
+npx vastx-native init   # re-applies generated config for the new version
 ```
 
 Check CHANGELOG.md's "Changed" section first; it lists anything that behaves
-differently. Installing without a tag (`github:vastx-tech/nuxt-native`) follows
+differently. Installing without a tag (`github:vastx-tech/vastx-native`) follows
 `main`, which can change on any merge.
 
 Adding it to an **existing** Nuxt project instead:
 
 ```bash
-npm install nuxt-native nativescript-vue @nativescript/core
+npm install vastx-native nativescript-vue @nativescript/core
 ```
 
 ```ts
 // nuxt.config.ts
 export default defineNuxtConfig({
-  modules: ['nuxt-native'],
+  modules: ['vastx-native'],
   native: {
     appId: 'com.example.myapp',
     appName: 'My App'
@@ -170,9 +170,9 @@ export default defineNuxtConfig({
 ```
 
 ```bash
-npx nuxt-native init          # scaffolds nativescript.config.ts + native platforms
-npx nuxt-native dev ios       # build, deploy, and LiveSync to a simulator/device
-npx nuxt-native dev android
+npx vastx-native init          # scaffolds nativescript.config.ts + native platforms
+npx vastx-native dev ios       # build, deploy, and LiveSync to a simulator/device
+npx vastx-native dev android
 ```
 
 Write pages under `app/pages/` using NativeScript-Vue's native elements —
@@ -181,9 +181,42 @@ Write pages under `app/pages/` using NativeScript-Vue's native elements —
 sensible defaults. See [`playground/`](./playground) for a working example.
 
 `npm run typecheck` (in projects created with `create`) runs `vue-tsc`
-against your pages, including the types nuxt-native generates for
+against your pages, including the types vastx-native generates for
 auto-imports and its `N*` components. In an existing project, add
 `vue-tsc` and the same script yourself.
+
+### Coming from `nuxt-native`?
+
+VastX Native was called `nuxt-native` up to v2.2.1. Starting with v3.0.0 it is
+published as `vastx-native`. To move an existing app over:
+
+1. Swap the package:
+
+   ```bash
+   npm uninstall nuxt-native && npm install vastx-native
+   ```
+
+2. In your app, find and replace `nuxt-native` with `vastx-native` in every file
+   except `node_modules/` and `platforms/`. The old name is written into more
+   places than `nuxt.config.ts`: `nativescript.config.ts` and package.json point at
+   the `.nuxt-native/` folder, `tsconfig.json` and `webpack.config.cjs` reference
+   it, and the files under `App_Resources/` contain `nuxt-native:` comments that
+   mark the blocks the CLI manages. Missing one of those comments leaves the CLI
+   adding a duplicate block next to the old one.
+3. Do the same for `NuxtNative` → `VastXNative` and `NUXT_NATIVE_` →
+   `VASTX_NATIVE_` if you import the options type or set the keystore environment
+   variables (also check your CI secrets).
+4. Rebuild from scratch:
+
+   ```bash
+   npx vastx-native clean
+   npx vastx-native init
+   ```
+
+   and delete the old `.nuxt-native/` folder.
+
+Your `native: { ... }` options don't change. See the 3.0.0 entry in
+[CHANGELOG.md](./CHANGELOG.md) for the complete list of renames.
 
 ### Android theme and minimum version
 
@@ -203,7 +236,7 @@ native: {
   `App_Resources/Android/src/main/res/values*/` on every build. A file
   there that you wrote yourself is left alone, with a warning. iOS isn't
   affected, and neither are the `N*` components' colours, which still come
-  from `nuxt-native/runtime/theme`.
+  from `vastx-native/runtime/theme`.
 - `android.minSdk` defaults to 23 (Android 6.0). NativeScript's own default
   is 21, which current Google Play services and Firebase libraries no
   longer support.
@@ -225,7 +258,7 @@ native: {
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useBottomSheet } from 'nuxt-native/runtime/composables/useBottomSheet.js'
+import { useBottomSheet } from 'vastx-native/runtime/composables/useBottomSheet.js'
 import HelpSheet from '../components/help-sheet.vue'
 
 const email = ref('')
@@ -364,7 +397,7 @@ visible. Scroll position, form input and loaded data are kept.
 ### Tailwind
 
 New projects use native style objects by default. Choose `--styling tailwind`
-with `nuxt-native create` to enable **Tailwind v3 + the bundled
+with `vastx-native create` to enable **Tailwind v3 + the bundled
 `@nativescript/tailwind` adapter**. Existing Tailwind projects continue to use
 their current setup.
 The generated PostCSS config runs the framework's compatibility wrapper after
@@ -432,7 +465,7 @@ left to a real on-device benchmark before it's the default there too.
 An alternative to Tailwind classes — Flutter's actual mechanism (widgets
 take typed style objects, not a CSS engine), which NativeScript already
 supports directly: every `:style` binding is already a plain JS object, not
-a CSS string. `nuxt-native/runtime/style.js` gives that a small, typed API
+a CSS string. `vastx-native/runtime/style.js` gives that a small, typed API
 built on the same tokens the UI kit uses — no CSS generation or parsing, so
 nothing here can hit the "utility isn't supported, so it silently no-ops"
 class of bug Tailwind needs a `corePlugins` allowlist to guard against.
@@ -482,7 +515,7 @@ NativeScript unit; it has no root-font-size concept of its own.
 
 ```bash
 npm install pinia @vue/devtools-api
-npx nuxt-native init android   # re-wires the bootstrap now that pinia is present
+npx vastx-native init android   # re-wires the bootstrap now that pinia is present
 ```
 
 ```ts
@@ -512,11 +545,11 @@ const counter = useCounterStore() // auto-imported from app/stores/
 </script>
 ```
 
-`nuxt-native init`/`create` detects a `pinia` dependency and wires
+`vastx-native init`/`create` detects a `pinia` dependency and wires
 `createApp(RootFrame).use(createPinia())` into the generated bootstrap
 automatically — nothing else to configure. Stores are plain Pinia,
 auto-imported from `app/stores/` the same way composables are (see
-Auto-imports below) — no special nuxt-native API. This works because Pinia's core is
+Auto-imports below) — no special vastx-native API. This works because Pinia's core is
 pure Vue reactivity with no DOM dependency at all (checked directly against
 its actual dist output, not assumed), and every DOM/devtools-only code path
 it has is gated behind a `typeof window !== 'undefined'` check that's
@@ -560,23 +593,23 @@ defineStore('auth', { state: () => ({ token: '', draft: '' }), persist: { pick: 
 - `persist` is handled by a Pinia plugin that the generated app entry
   registers whenever `pinia` is installed. It only affects stores that set
   `persist`, and the option is typed in the generated
-  `.nuxt-native/auto-imports.d.ts`.
+  `.vastx-native/auto-imports.d.ts`.
 - Neither is encrypted: don't store secrets you'd keep out of
   SharedPreferences/NSUserDefaults.
 
 ## MCP client (`useMcpClient()`)
 
-Apps built with nuxt-native can connect to [MCP](https://modelcontextprotocol.io)
+Apps built with vastx-native can connect to [MCP](https://modelcontextprotocol.io)
 servers and call their tools — e.g. building an AI-assistant mobile app.
 
 ```vue
 <script setup lang="ts">
-import { useMcpClient } from 'nuxt-native/runtime/composables/useMcpClient.js'
+import { useMcpClient } from 'vastx-native/runtime/composables/useMcpClient.js'
 
 const mcp = useMcpClient()
 await mcp.connect('https://your-mcp-server.example.com/mcp')
 const tools = await mcp.listTools()
-const result = await mcp.callTool('search', { query: 'nuxt native' })
+const result = await mcp.callTool('search', { query: 'vastx native' })
 </script>
 ```
 
@@ -608,7 +641,7 @@ verified.
 
 ```vue
 <script setup lang="ts">
-import { useWebSocket } from 'nuxt-native/runtime/composables/useWebSocket'
+import { useWebSocket } from 'vastx-native/runtime/composables/useWebSocket'
 
 const ws = useWebSocket('wss://your-server.example.com/socket', {
   onOpen: () => console.log('connected'),
@@ -628,7 +661,7 @@ NativeScript has no global `WebSocket` (confirmed on a real device: `typeof
 WebSocket` is `"undefined"`), and no maintained NativeScript WebSocket
 plugin exists on npm (checked directly). This talks to each platform's
 real native WebSocket capability directly instead: Android via OkHttp
-(added as a real Gradle dependency automatically by `nuxt-native init`,
+(added as a real Gradle dependency automatically by `vastx-native init`,
 since `@nativescript/core`'s own HTTP module uses its own native widget,
 not OkHttp — confirmed by reading its Android implementation), iOS via
 `NSURLSessionWebSocketTask` (a first-party OS API since iOS 13, no extra
@@ -650,7 +683,7 @@ echo. Two real bugs were only caught this way, not by compiling: OkHttp
 project defaults to 35), fixed by pinning to OkHttp 4.12.0; and Android
 blocks cleartext (`ws://`) traffic by default for apps targeting API 28+,
 fixed with a debug-only network security config permitting cleartext to
-`127.0.0.1`/`10.0.2.2`/`localhost` (`nuxt-native init` wires this up
+`127.0.0.1`/`10.0.2.2`/`localhost` (`vastx-native init` wires this up
 automatically, same as the OkHttp dependency — see `ARCHITECTURE.md` for
 the full detail). Production apps should use `wss://` regardless; the
 cleartext exception only applies to debug builds. The iOS implementation
@@ -747,7 +780,7 @@ levers:
 
 ## Gradle memory tuning
 
-`nuxt-native init` also patches `platforms/android/gradle.properties` once,
+`vastx-native init` also patches `platforms/android/gradle.properties` once,
 right after `ns platform add` scaffolds it: the stock `@nativescript/android`
 template ships `org.gradle.jvmargs=-Xmx16384M` — a flat 16 GB Gradle daemon
 heap ceiling, regardless of the machine actually running the build. On a
@@ -768,7 +801,7 @@ identically with a fraction of the memory.
 The limit used to be 35% / 3 GB, which still crashed an 8 GB Windows
 machine. Projects tuned before that keep their old value: edit
 `org.gradle.jvmargs` in `platforms/android/gradle.properties`, or delete the
-`# nuxt-native: memory settings tuned` line there and the next build re-tunes
+`# vastx-native: memory settings tuned` line there and the next build re-tunes
 it.
 
 The generated `webpack.config.cjs` gets the same treatment for
@@ -782,7 +815,7 @@ scaled to the machine instead of left at the flat default.
 
 ## Auto-imports
 
-Composables — both nuxt-native's own (`useDevice`, `useWebSocket`, ...) and
+Composables — both vastx-native's own (`useDevice`, `useWebSocket`, ...) and
 anything you add yourself under `app/composables/` — are usable in any page
 or component with no `import` statement, the same DX Nuxt itself gives you
 for its own build:
@@ -829,7 +862,7 @@ What gets auto-imported, and how names are resolved:
 
 ## Plugins
 
-A "nuxt-native plugin" is just an ordinary npm package that exports one or
+A "vastx-native plugin" is just an ordinary npm package that exports one or
 more `useXxx()` composables — install it like anything else. If it needs
 native setup (a Gradle dependency, an Android permission, an iOS
 `Info.plist` entry, ...), list it in `nuxt.config.ts`:
@@ -837,12 +870,12 @@ native setup (a Gradle dependency, an Android permission, an iOS
 ```ts
 export default defineNuxtConfig({
   native: {
-    plugins: ['some-nuxt-native-plugin']
+    plugins: ['some-vastx-native-plugin']
   }
 })
 ```
 
-`nuxt-native init`/`dev`/`build` will then look for a `"./nuxt-native"`
+`vastx-native init`/`dev`/`build` will then look for a `"./vastx-native"`
 subpath export on that package (it needs to declare this in its own
 `package.json`'s `exports` map) and, if present, call its
 `ensure(projectRoot, platforms)` function — the same idempotent pattern
@@ -856,18 +889,18 @@ don't need one.
 ## CLI reference
 
 ```bash
-nuxt-native create <name> [--app-id com.example.app] [--platforms ios,android] [--styling native|tailwind] [--link /path/to/nuxt-native]
-nuxt-native init [ios] [android]     # add to an existing project
-nuxt-native dev <ios|android> [ns run flags...]
-nuxt-native build <ios|android> [ns build flags...]
-nuxt-native doctor                   # check the project, then run `ns info`
-nuxt-native keystore create --alias <name> [--output ./release.keystore]
-nuxt-native analyze <ios|android>    # bundle size report → report/report.html
-nuxt-native lint                     # catch a navigate() call to a route that doesn't exist
-nuxt-native clean                    # remove platforms/, hooks/, and cached build artifacts
-nuxt-native version [show]           # show the current version + versionCode
-nuxt-native version bump <major|minor|patch>
-nuxt-native version sync             # write the current version to native platform files
+vastx-native create <name> [--app-id com.example.app] [--platforms ios,android] [--styling native|tailwind] [--link /path/to/vastx-native]
+vastx-native init [ios] [android]     # add to an existing project
+vastx-native dev <ios|android> [ns run flags...]
+vastx-native build <ios|android> [ns build flags...]
+vastx-native doctor                   # check the project, then run `ns info`
+vastx-native keystore create --alias <name> [--output ./release.keystore]
+vastx-native analyze <ios|android>    # bundle size report → report/report.html
+vastx-native lint                     # catch a navigate() call to a route that doesn't exist
+vastx-native clean                    # remove platforms/, hooks/, and cached build artifacts
+vastx-native version [show]           # show the current version + versionCode
+vastx-native version bump <major|minor|patch>
+vastx-native version sync             # write the current version to native platform files
 ```
 
 `dev`/`build` forward any flags after `<ios|android>` straight to the real
@@ -876,18 +909,18 @@ signed Android release, generate a keystore once and set the environment
 variables it prints (never written to disk):
 
 ```bash
-npx nuxt-native keystore create --alias my-app
-# then, once NUXT_NATIVE_KEYSTORE_* is set in your shell/CI secrets:
-npx nuxt-native build android --release
+npx vastx-native keystore create --alias my-app
+# then, once VASTX_NATIVE_KEYSTORE_* is set in your shell/CI secrets:
+npx vastx-native build android --release
 ```
 
-`--link` points the generated project's `nuxt-native` dependency at a local
+`--link` points the generated project's `vastx-native` dependency at a local
 checkout (a `file:` spec — npm symlinks it, no network fetch) instead of
-`github:vastx-tech/nuxt-native`. Both paths use the prebuilt `dist` committed
+`github:vastx-tech/vastx-native`. Both paths use the prebuilt `dist` committed
 with the framework, so installing an app does not compile the framework:
 
 ```bash
-nuxt-native create myapp --link ../nuxt-native
+vastx-native create myapp --link ../vastx-native
 ```
 
 ## App release versioning
@@ -899,9 +932,9 @@ a semver string alone can't express — e.g. two releases can share a
 patch-bumped version but still need distinct versionCodes).
 
 ```bash
-npx nuxt-native version              # show the current version + versionCode
-npx nuxt-native version bump patch   # 1.0.0 (1) -> 1.0.1 (2), synced automatically
-npx nuxt-native version sync         # re-sync current values without bumping
+npx vastx-native version              # show the current version + versionCode
+npx vastx-native version bump patch   # 1.0.0 (1) -> 1.0.1 (2), synced automatically
+npx vastx-native version sync         # re-sync current values without bumping
 ```
 
 `bump`/`sync` write `android.defaultConfig.versionCode`/`versionName` into
@@ -934,13 +967,13 @@ by hand too.
 ## MCP server (agent-driven dev workflow)
 
 Install optional MCP dependencies with `npm install -D @modelcontextprotocol/sdk zod`,
-then run `npx nuxt-native mcp` from an app project to start the bundled stdio
+then run `npx vastx-native mcp` from an app project to start the bundled stdio
 MCP server. Configure your AI agent to launch that command; no separate
 repository clone or server folder is needed. New projects include setup
 instructions in their README. See [MCP setup](./mcp-server/README.md) for
 agent configuration, including Windows launch options.
 
-The server exposes `nuxt-native`'s dev workflow —
+The server exposes `vastx-native`'s dev workflow —
 `doctor`, `build`, `lint`, `clean`, `analyze`, device listing, install +
 launch, log reading — as [MCP](https://modelcontextprotocol.io) tools, so
 any MCP-speaking AI agent (Claude Code, Claude Desktop, anything else that
@@ -955,7 +988,7 @@ a physical Android device.
 
 ```
 src/                the Nuxt module (composables, components, route generation)
-cli/, bin/          the nuxt-native CLI (native bootstrap + ns run/build orchestration)
+cli/, bin/          the vastx-native CLI (native bootstrap + ns run/build orchestration)
 playground/         example Nuxt app consuming the module
 vscode-extension/   the VS Code extension (separate package.json/build)
 mcp-server/         bundled MCP server exposing the dev workflow to AI agents
@@ -970,3 +1003,6 @@ where help is most valuable, then open an issue or PR.
 ## License
 
 [MIT](./LICENSE)
+
+VastX Native is an independent project built on Nuxt, Vue and NativeScript. It
+is not affiliated with or endorsed by NuxtLabs or the Nuxt team.

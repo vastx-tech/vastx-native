@@ -16,7 +16,7 @@ import { stopGradleDaemonIfLowMemory } from '../lib/gradle-tuning.mjs'
  */
 export async function build(platform, nsArgs = []) {
   if (platform !== 'ios' && platform !== 'android') {
-    throw new Error('[nuxt-native] Usage: nuxt-native build <ios|android> [ns build flags...]')
+    throw new Error('[vastx-native] Usage: vastx-native build <ios|android> [ns build flags...]')
   }
 
   generateEntry({ pagesDir: 'app/pages' })
@@ -30,12 +30,12 @@ export async function build(platform, nsArgs = []) {
   if (finalArgs.includes('--release') && !finalArgs.some(arg => arg.startsWith('--key-store'))) {
     const envArgs = keystoreArgsFromEnv()
     if (envArgs) {
-      console.log('[nuxt-native] --release with no --key-store-* flags — using NUXT_NATIVE_KEYSTORE_* environment variables')
+      console.log('[vastx-native] --release with no --key-store-* flags — using VASTX_NATIVE_KEYSTORE_* environment variables')
       finalArgs.push(...envArgs)
     }
   }
 
-  console.log(`[nuxt-native] ns build ${platform} ${finalArgs.join(' ')}`.trimEnd())
+  console.log(`[vastx-native] ns build ${platform} ${finalArgs.join(' ')}`.trimEnd())
   try {
     await run('npx', ['--yes', 'nativescript', 'build', platform, ...finalArgs])
   } finally {
@@ -44,25 +44,25 @@ export async function build(platform, nsArgs = []) {
 }
 
 /**
- * See keystore.mjs: `nuxt-native keystore create` never persists a
+ * See keystore.mjs: `vastx-native keystore create` never persists a
  * password to disk, only prints these variable names — reading them here
- * is what makes `nuxt-native build android --release` (no flags) work
+ * is what makes `vastx-native build android --release` (no flags) work
  * once they're set, without ever writing a secret to a project file.
  */
 function keystoreArgsFromEnv() {
   const {
-    NUXT_NATIVE_KEYSTORE_PATH,
-    NUXT_NATIVE_KEYSTORE_PASSWORD,
-    NUXT_NATIVE_KEYSTORE_ALIAS,
-    NUXT_NATIVE_KEYSTORE_ALIAS_PASSWORD
+    VASTX_NATIVE_KEYSTORE_PATH,
+    VASTX_NATIVE_KEYSTORE_PASSWORD,
+    VASTX_NATIVE_KEYSTORE_ALIAS,
+    VASTX_NATIVE_KEYSTORE_ALIAS_PASSWORD
   } = process.env
 
-  if (!NUXT_NATIVE_KEYSTORE_PATH) return null
+  if (!VASTX_NATIVE_KEYSTORE_PATH) return null
 
   return [
-    '--key-store-path', NUXT_NATIVE_KEYSTORE_PATH,
-    '--key-store-password', NUXT_NATIVE_KEYSTORE_PASSWORD,
-    '--key-store-alias', NUXT_NATIVE_KEYSTORE_ALIAS,
-    '--key-store-alias-password', NUXT_NATIVE_KEYSTORE_ALIAS_PASSWORD
+    '--key-store-path', VASTX_NATIVE_KEYSTORE_PATH,
+    '--key-store-password', VASTX_NATIVE_KEYSTORE_PASSWORD,
+    '--key-store-alias', VASTX_NATIVE_KEYSTORE_ALIAS,
+    '--key-store-alias-password', VASTX_NATIVE_KEYSTORE_ALIAS_PASSWORD
   ]
 }

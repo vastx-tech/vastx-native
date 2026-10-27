@@ -20,7 +20,7 @@ test('packaged CLI serves MCP from a new app without a server folder', { timeout
   assert.equal(pkg.peerDependenciesMeta['@modelcontextprotocol/sdk'].optional, true)
   assert.equal(pkg.peerDependenciesMeta.zod.optional, true)
 
-  const scratch = mkdtempSync(join(tmpdir(), 'nuxt-native-mcp-'))
+  const scratch = mkdtempSync(join(tmpdir(), 'vastx-native-mcp-'))
   const staging = join(scratch, 'source')
   const distribution = join(scratch, 'framework')
   const app = join(scratch, 'my-app')
@@ -37,7 +37,7 @@ test('packaged CLI serves MCP from a new app without a server folder', { timeout
       process.env.npm_execpath, 'pack', '--dry-run', '--json', '--ignore-scripts'
     ], { cwd: staging, encoding: 'utf8', timeout: 30000 }))
     const files = new Set(pack.files.map(file => file.path))
-    for (const path of ['bin/nuxt-native.mjs', 'mcp-server/bin/server.mjs', 'mcp-server/src/android.mjs', 'mcp-server/src/devices.mjs']) {
+    for (const path of ['bin/vastx-native.mjs', 'mcp-server/bin/server.mjs', 'mcp-server/src/android.mjs', 'mcp-server/src/devices.mjs']) {
       assert.ok(files.has(path), `Package is missing ${path}`)
     }
     assert.ok(!files.has('mcp-server/package.json'), 'Use the main package dependencies')
@@ -58,7 +58,7 @@ test('packaged CLI serves MCP from a new app without a server folder', { timeout
 
     await client.connect(new StdioClientTransport({
       command: process.execPath,
-      args: [join(distribution, 'bin/nuxt-native.mjs'), 'mcp'],
+      args: [join(distribution, 'bin/vastx-native.mjs'), 'mcp'],
       cwd: app,
       stderr: 'pipe'
     }))

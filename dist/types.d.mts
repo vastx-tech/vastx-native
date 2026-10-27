@@ -6,4 +6,4 @@ export type ModuleOptions = typeof Module extends NuxtModule<infer O> ? Partial<
 
 export { default } from './module.mjs'
 
-export { type NuxtNativeOptions } from './module.mjs'
+export { type VastXNativeOptions } from './module.mjs'

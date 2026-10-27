@@ -2,7 +2,7 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { ensureMarkedBlock } from './marked-block.mjs'
 
-const MARKER = '<!-- nuxt-native: generated from native.theme in nuxt.config — edit there, or delete this line to take this file over -->'
+const MARKER = '<!-- vastx-native: generated from native.theme in nuxt.config — edit there, or delete this line to take this file over -->'
 
 /**
  * Generates the Android app theme from `native.theme` in nuxt.config:
@@ -151,7 +151,7 @@ ${v21AppThemeItems}
 export function ensureAndroidMinSdk(projectRoot, minSdk = 23) {
   const value = Number(minSdk)
   if (!Number.isInteger(value) || value < 21) {
-    throw new Error(`[nuxt-native] native.android.minSdk must be an integer of at least 21, got ${JSON.stringify(minSdk)}`)
+    throw new Error(`[vastx-native] native.android.minSdk must be an integer of at least 21, got ${JSON.stringify(minSdk)}`)
   }
   ensureMarkedBlock(join(projectRoot, 'App_Resources', 'Android', 'app.gradle'), 'minimum Android version', `
 android {
@@ -164,7 +164,7 @@ android {
 
 function normalizeHex(value, name) {
   const match = /^#?([0-9a-f]{3}|[0-9a-f]{6})$/i.exec(String(value).trim())
-  if (!match) throw new Error(`[nuxt-native] native.theme.${name} must be a hex colour like #0B1020, got ${JSON.stringify(value)}`)
+  if (!match) throw new Error(`[vastx-native] native.theme.${name} must be a hex colour like #0B1020, got ${JSON.stringify(value)}`)
   const hex = match[1].length === 3 ? [...match[1]].map(c => c + c).join('') : match[1]
   return `#${hex.toUpperCase()}`
 }

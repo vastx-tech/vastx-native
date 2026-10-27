@@ -7,23 +7,23 @@ import { run } from '../lib/run.mjs'
  * any JDK — not reimplemented here). Never persists the password anywhere:
  * that's a real secret, and a local config file is exactly the kind of
  * thing that ends up committed by accident. Instead this prints the
- * NUXT_NATIVE_KEYSTORE_* environment variable names `build.mjs` already
+ * VASTX_NATIVE_KEYSTORE_* environment variable names `build.mjs` already
  * knows to read, so the workflow is "set them once in your shell profile
- * or CI secrets, then just run `nuxt-native build android --release`" —
+ * or CI secrets, then just run `vastx-native build android --release`" —
  * no flags to retype, nothing sensitive on disk.
  */
 export async function keystoreCreate({ alias, output, validityDays = 10000 } = {}) {
   if (!alias) {
-    throw new Error('[nuxt-native] Usage: nuxt-native keystore create --alias <name> [--output ./release.keystore] [--validity 10000]')
+    throw new Error('[vastx-native] Usage: vastx-native keystore create --alias <name> [--output ./release.keystore] [--validity 10000]')
   }
 
   const outputPath = resolve(process.cwd(), output ?? 'release.keystore')
   if (existsSync(outputPath)) {
-    throw new Error(`[nuxt-native] ${outputPath} already exists — refusing to overwrite an existing keystore (doing so would break your ability to publish updates to any app already signed with it).`)
+    throw new Error(`[vastx-native] ${outputPath} already exists — refusing to overwrite an existing keystore (doing so would break your ability to publish updates to any app already signed with it).`)
   }
 
-  console.log(`[nuxt-native] Generating a keystore at ${outputPath} ...`)
-  console.log('[nuxt-native] keytool will prompt for a keystore password and some identity questions (org, name, ...) — nuxt-native never sees or stores the password.')
+  console.log(`[vastx-native] Generating a keystore at ${outputPath} ...`)
+  console.log('[vastx-native] keytool will prompt for a keystore password and some identity questions (org, name, ...) — vastx-native never sees or stores the password.')
 
   await run('keytool', [
     '-genkeypair', '-v',
@@ -41,26 +41,26 @@ export async function keystoreCreate({ alias, output, validityDays = 10000 } = {
   // exit-code check can't catch this, so the actual output file's
   // existence is the only reliable success signal here.
   if (!existsSync(outputPath)) {
-    throw new Error(`[nuxt-native] keytool reported success but ${outputPath} was never created — it likely failed at an interactive prompt (e.g. a mismatched or too-short password). Try running \`nuxt-native keystore create\` again from a real interactive terminal.`)
+    throw new Error(`[vastx-native] keytool reported success but ${outputPath} was never created — it likely failed at an interactive prompt (e.g. a mismatched or too-short password). Try running \`vastx-native keystore create\` again from a real interactive terminal.`)
   }
 
   console.log(`
-[nuxt-native] Keystore created at ${outputPath}.
+[vastx-native] Keystore created at ${outputPath}.
 
 IMPORTANT: back this file up somewhere safe, outside version control —
 losing it means you can never publish an update to an app already signed
 with it.
 
 Build a signed release either by passing the flags directly:
-  nuxt-native build android --release \\
+  vastx-native build android --release \\
     --key-store-path ${outputPath} --key-store-password <password> \\
     --key-store-alias ${alias} --key-store-alias-password <password>
 
 ...or set these once (shell profile, CI secrets) and just run
-\`nuxt-native build android --release\` — it reads them automatically:
-  NUXT_NATIVE_KEYSTORE_PATH=${outputPath}
-  NUXT_NATIVE_KEYSTORE_PASSWORD=<password>
-  NUXT_NATIVE_KEYSTORE_ALIAS=${alias}
-  NUXT_NATIVE_KEYSTORE_ALIAS_PASSWORD=<password>
+\`vastx-native build android --release\` — it reads them automatically:
+  VASTX_NATIVE_KEYSTORE_PATH=${outputPath}
+  VASTX_NATIVE_KEYSTORE_PASSWORD=<password>
+  VASTX_NATIVE_KEYSTORE_ALIAS=${alias}
+  VASTX_NATIVE_KEYSTORE_ALIAS_PASSWORD=<password>
 `)
 }

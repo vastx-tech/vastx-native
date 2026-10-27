@@ -8,7 +8,7 @@ import { run } from '../lib/run.mjs'
  * poisoning vendored CommonJS tooling, a webpack.config.cjs that never got
  * generated, ...) — the class of problem `ns`'s own environment checks
  * (Xcode/Android SDK/JDK) can't see, since they're specific to how
- * nuxt-native wires a project together, not the machine it runs on.
+ * vastx-native wires a project together, not the machine it runs on.
  * Delegates the machine-level checks to the real `ns info` afterward
  * rather than re-implementing them.
  */
@@ -18,7 +18,7 @@ export async function doctor() {
 
   const pkgPath = join(root, 'package.json')
   const pkg = existsSync(pkgPath) ? JSON.parse(readFileSync(pkgPath, 'utf8')) : {}
-  checks.push(check('package.json exists', existsSync(pkgPath), 'Not a Nuxt Native project directory? Run: nuxt-native create <name>'))
+  checks.push(check('package.json exists', existsSync(pkgPath), 'Not a VastX Native project directory? Run: vastx-native create <name>'))
 
   if (existsSync(pkgPath)) {
     checks.push(check(
@@ -41,37 +41,37 @@ export async function doctor() {
     checks.push(check(
       '"main" field is set in package.json',
       Boolean(pkg.main),
-      '@nativescript/webpack\'s getEntryPath() falls back to this if nativescript.config.ts has no `main` — with neither set, it throws ERR_INVALID_ARG_TYPE. Run: nuxt-native init'
+      '@nativescript/webpack\'s getEntryPath() falls back to this if nativescript.config.ts has no `main` — with neither set, it throws ERR_INVALID_ARG_TYPE. Run: vastx-native init'
     ))
   }
 
   const nsConfigPath = join(root, 'nativescript.config.ts')
   const nsConfigExists = existsSync(nsConfigPath)
-  checks.push(check('nativescript.config.ts exists', nsConfigExists, 'Run: nuxt-native init'))
+  checks.push(check('nativescript.config.ts exists', nsConfigExists, 'Run: vastx-native init'))
 
   if (nsConfigExists) {
     const nsConfig = readFileSync(nsConfigPath, 'utf8')
     checks.push(check(
       'nativescript.config.ts sets bundlerConfigPath',
       nsConfig.includes('bundlerConfigPath'),
-      'Without it, `ns` looks for the default webpack.config.js, which nuxt-native never generates (it generates webpack.config.cjs instead — see webpack-config.mjs for why). Run: nuxt-native init'
+      'Without it, `ns` looks for the default webpack.config.js, which vastx-native never generates (it generates webpack.config.cjs instead — see webpack-config.mjs for why). Run: vastx-native init'
     ))
     checks.push(check(
       'nativescript.config.ts sets webpackConfigPath (fallback)',
       nsConfig.includes('webpackConfigPath'),
-      'A safety net for `ns` versions/installs that don\'t read bundlerConfigPath — a real one hit this. Run: nuxt-native init'
+      'A safety net for `ns` versions/installs that don\'t read bundlerConfigPath — a real one hit this. Run: vastx-native init'
     ))
     checks.push(check(
       'nativescript.config.ts sets main',
       /\bmain\s*:/.test(nsConfig),
-      'Checked before package.json\'s own `main` field by getEntryPath() — see the package.json check above. Run: nuxt-native init'
+      'Checked before package.json\'s own `main` field by getEntryPath() — see the package.json check above. Run: vastx-native init'
     ))
   }
 
   checks.push(check(
     'webpack.config.cjs exists',
     existsSync(join(root, 'webpack.config.cjs')),
-    'Required by `ns build`/`ns run` to know how to compile .vue pages. Run: nuxt-native init'
+    'Required by `ns build`/`ns run` to know how to compile .vue pages. Run: vastx-native init'
   ))
 
   const tsconfigPath = join(root, 'tsconfig.json')
@@ -97,13 +97,13 @@ export async function doctor() {
     ))
   }
 
-  console.log('\n[nuxt-native] Project checks:\n')
+  console.log('\n[vastx-native] Project checks:\n')
   for (const c of checks) printCheck(c)
 
   const failed = checks.filter(c => !c.ok)
-  console.log(`\n[nuxt-native] ${checks.length - failed.length}/${checks.length} checks passed.`)
+  console.log(`\n[vastx-native] ${checks.length - failed.length}/${checks.length} checks passed.`)
 
-  console.log('\n[nuxt-native] Delegating to `ns info` for environment checks (Xcode, Android SDK, JDK, ...):\n')
+  console.log('\n[vastx-native] Delegating to `ns info` for environment checks (Xcode, Android SDK, JDK, ...):\n')
   try {
     await run('npx', ['--yes', 'nativescript', 'info'])
   } catch {

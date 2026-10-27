@@ -40,15 +40,15 @@ function routeNameFromPath(path) {
 
 const module$1 = defineNuxtModule({
   meta: {
-    name: "nuxt-native",
+    name: "vastx-native",
     configKey: "native",
     compatibility: {
       nuxt: ">=3.14.0"
     }
   },
   defaults: {
-    appId: "org.nuxtnative.app",
-    appName: "NuxtNativeApp",
+    appId: "org.vastxnative.app",
+    appName: "VastXNativeApp",
     platforms: ["ios", "android"],
     entry: "app/app.vue",
     styling: "auto",
@@ -58,7 +58,7 @@ const module$1 = defineNuxtModule({
     const resolver = createResolver(import.meta.url);
     if (nuxt.options.ssr) {
       console.warn(
-        "[nuxt-native] Disabling SSR: native apps render on-device only, there is no server response to hydrate."
+        "[vastx-native] Disabling SSR: native apps render on-device only, there is no server response to hydrate."
       );
       nuxt.options.ssr = false;
     }
@@ -77,7 +77,7 @@ const module$1 = defineNuxtModule({
       latestPages = pages;
     });
     addTemplate({
-      filename: "nuxt-native/route-manifest.mjs",
+      filename: "vastx-native/route-manifest.mjs",
       write: true,
       getContents: () => renderRouteManifestModule(generateRouteManifest(latestPages))
     });

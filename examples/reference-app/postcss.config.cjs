@@ -4,6 +4,6 @@
 module.exports = {
   plugins: [
     require('tailwindcss'),
-    require('nuxt-native/cli/lib/native-tailwind.cjs')()
+    require('vastx-native/cli/lib/native-tailwind.cjs')()
   ]
 }

@@ -119,7 +119,7 @@ function pickDynamic(el: VModelElement): ObjectDirective<VModelElement, any> {
   if (el.tagName === 'Switch') return vModelCheckbox
   if (el.tagName === 'TextField' || el.tagName === 'TextView') return vModelText
   throw new Error(
-    `[nuxt-native] v-model has no native binding for <${el.tagName}>. ` +
+    `[vastx-native] v-model has no native binding for <${el.tagName}>. ` +
       `Use one of this project's N* form components (e.g. NInput, NSwitch) instead, ` +
       `or bind the element's own property/event pair directly.`
   )
@@ -130,7 +130,7 @@ function pickDynamic(el: VModelElement): ObjectDirective<VModelElement, any> {
 export const vModelRadio: ObjectDirective<VModelElement, any> = {
   created(el) {
     throw new Error(
-      `[nuxt-native] v-model="..." radio" has no native equivalent for <${el.tagName}>. ` +
+      `[vastx-native] v-model="..." radio" has no native equivalent for <${el.tagName}>. ` +
         `Build a radio group from NSwitch/button components with explicit state instead.`
     )
   },
@@ -141,7 +141,7 @@ export const vModelRadio: ObjectDirective<VModelElement, any> = {
 export const vModelSelect: ObjectDirective<VModelElement, any> = {
   created(el) {
     throw new Error(
-      `[nuxt-native] v-model.select has no native equivalent for <${el.tagName}>. ` +
+      `[vastx-native] v-model.select has no native equivalent for <${el.tagName}>. ` +
         `Use a native ListPicker-backed component with explicit selectedIndex/change handling instead.`
     )
   },

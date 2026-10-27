@@ -1,4 +1,4 @@
-# Working on this Nuxt Native app
+# Working on this VastX Native app
 
 Read STYLING.md before creating or changing UI. Use its native layout and spacing
 conventions. This project uses Tailwind v3 with the framework's bundled NativeScript

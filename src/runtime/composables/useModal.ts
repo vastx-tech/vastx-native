@@ -3,7 +3,7 @@ import { $closeModal, $showModal } from 'nativescript-vue'
 /**
  * Thin wrapper over nativescript-vue's own $showModal/$closeModal — not
  * re-implemented, just given the same composable-style API as the rest of
- * nuxt-native (useNativeRouter, useDevice, ...) instead of the framework's
+ * vastx-native (useNativeRouter, useDevice, ...) instead of the framework's
  * plain exported-function shape.
  *
  * ShowModalOptions isn't re-exported from nativescript-vue's package root

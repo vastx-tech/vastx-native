@@ -14,7 +14,7 @@ export function useGeolocation() {
     try {
       await geolocation.enableLocationRequest();
     } catch {
-      throw new Error("[nuxt-native] Location permission was denied.");
+      throw new Error("[vastx-native] Location permission was denied.");
     }
     const position = await geolocation.getCurrentLocation({
       desiredAccuracy: options.accuracy === "high" ? CoreTypes.Accuracy.high : CoreTypes.Accuracy.any,
@@ -35,7 +35,7 @@ async function loadPlugin() {
     return await import("@nativescript/geolocation");
   } catch {
     throw new Error(
-      '[nuxt-native] useGeolocation() requires the "@nativescript/geolocation" plugin.\nInstall it with: npm install @nativescript/geolocation'
+      '[vastx-native] useGeolocation() requires the "@nativescript/geolocation" plugin.\nInstall it with: npm install @nativescript/geolocation'
     );
   }
 }

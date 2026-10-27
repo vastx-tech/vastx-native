@@ -1,7 +1,7 @@
 import { bumpSemver, readVersion, syncVersion, writeVersion } from '../lib/app-version.mjs'
 
 /**
- * `nuxt-native version [show|bump <part>|sync]` — deliberately never
+ * `vastx-native version [show|bump <part>|sync]` — deliberately never
  * wired into `init`'s automatic flow the way gradle-tuning/splash-
  * branding/Tailwind-setup are: those are safe to silently redo on every
  * init because they're idempotent config, but bumping a version number is
@@ -14,7 +14,7 @@ export async function version(action = 'show', part) {
 
   if (action === 'show' || !action) {
     const { version: v, versionCode } = readVersion(root)
-    console.log(`[nuxt-native] version ${v} (versionCode ${versionCode})`)
+    console.log(`[vastx-native] version ${v} (versionCode ${versionCode})`)
     return
   }
 
@@ -24,16 +24,16 @@ export async function version(action = 'show', part) {
     const nextVersionCode = current.versionCode + 1
     writeVersion(root, { version: nextVersion, versionCode: nextVersionCode })
     syncVersion(root)
-    console.log(`[nuxt-native] ${current.version} (versionCode ${current.versionCode}) -> ${nextVersion} (versionCode ${nextVersionCode})`)
-    console.log('[nuxt-native] Synced to App_Resources/Android/app.gradle' + (nextVersionCode ? ' and App_Resources/iOS/Info.plist if present' : ''))
+    console.log(`[vastx-native] ${current.version} (versionCode ${current.versionCode}) -> ${nextVersion} (versionCode ${nextVersionCode})`)
+    console.log('[vastx-native] Synced to App_Resources/Android/app.gradle' + (nextVersionCode ? ' and App_Resources/iOS/Info.plist if present' : ''))
     return
   }
 
   if (action === 'sync') {
     const { version: v, versionCode } = syncVersion(root)
-    console.log(`[nuxt-native] Synced version ${v} (versionCode ${versionCode}) to native platform files.`)
+    console.log(`[vastx-native] Synced version ${v} (versionCode ${versionCode}) to native platform files.`)
     return
   }
 
-  throw new Error('[nuxt-native] Usage: nuxt-native version [show|bump <major|minor|patch>|sync]')
+  throw new Error('[vastx-native] Usage: vastx-native version [show|bump <major|minor|patch>|sync]')
 }

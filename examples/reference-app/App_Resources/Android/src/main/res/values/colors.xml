@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- nuxt-native: generated from native.theme in nuxt.config — edit there, or delete this line to take this file over -->
+<!-- vastx-native: generated from native.theme in nuxt.config — edit there, or delete this line to take this file over -->
 <resources>
     <color name="ns_primary">#4F46E5</color>
     <color name="ns_primaryDark">#F8FAFC</color>

@@ -1,17 +1,17 @@
-# Nuxt Native reference app
+# VastX Native reference app
 
 A small, real (not toy-sized-to-the-point-of-uselessness) shop app —
 product list, product detail, a cart backed by Pinia — built to demonstrate
-the recommended project architecture for a Nuxt Native app. Every pattern
+the recommended project architecture for a VastX Native app. Every pattern
 here is something the framework actually, verifiably supports; nothing is
 aspirational.
 
-Lives inside the framework's own repo, and depends on `nuxt-native` via
-`"file:../.."` rather than `github:vastx-tech/nuxt-native` — so it always
+Lives inside the framework's own repo, and depends on `vastx-native` via
+`"file:../.."` rather than `github:vastx-tech/vastx-native` — so it always
 builds against the exact local code in this checkout, not a published
 snapshot. A real project outside this repo should depend on it the way
-`nuxt-native create` generates (`github:vastx-tech/nuxt-native` today, a
-normal npm version once published) instead.
+`vastx-native create` generates (a tagged `github:vastx-tech/vastx-native#vX.Y.Z`
+spec), or on the npm package (`npm install vastx-native`).
 
 ## Folder structure
 
@@ -28,7 +28,7 @@ app/
 
 This mirrors Nuxt's own directory conventions on purpose — the goal is that
 if you already know how a Nuxt project is organized, you already know how
-to organize a Nuxt Native one. The differences from a web Nuxt project are
+to organize a VastX Native one. The differences from a web Nuxt project are
 exactly the places where "there's no DOM/server, this is a real native
 app" changes what's possible, and each one is called out below rather than
 left as a surprise.
@@ -48,7 +48,7 @@ pages and navigate between them (`navigate('products_id', { params: { id
 `useProducts()` (this app's own composable, `app/composables/useProducts.ts`)
 and `formatCurrency()` (this app's own util, `app/utils/formatCurrency.ts`)
 are both used in these pages/components with **no import statement** —
-same as `useNativeRouter()`, `useDevice()`, and every other nuxt-native
+same as `useNativeRouter()`, `useDevice()`, and every other vastx-native
 composable. So is the Pinia store `useCartStore()` from `app/stores/cart.ts`:
 every export of every file in `app/composables/`, `app/utils/` and
 `app/stores/` is auto-imported by its real name, whatever the file is
@@ -65,7 +65,7 @@ different mechanism in real Nuxt (component discovery, not the same
 `app/stores/cart.ts` is a plain Pinia setup-store (`defineStore('cart', ()
 => {...})`) — nothing native-specific about it. Its `{ persist: true }` option
 saves the cart on the device and restores it when the app starts again
-(nuxt-native's Pinia plugin, see the framework README's "Saving state on
+(vastx-native's Pinia plugin, see the framework README's "Saving state on
 the device"). Pinia works here because
 its actual store engine has no DOM dependency at all (confirmed by
 reading its real dist output, see `ARCHITECTURE.md` in the framework repo
@@ -89,6 +89,6 @@ variant input; Tailwind classes are for layout/spacing on raw views.
 
 ```
 npm install
-npx nuxt-native init
-npx nuxt-native dev android   # or ios
+npx vastx-native init
+npx vastx-native dev android   # or ios
 ```

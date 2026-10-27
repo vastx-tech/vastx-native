@@ -3,7 +3,7 @@ import * as vscode from 'vscode'
 export type DevSessionState = 'stopped' | 'running'
 
 /**
- * Runs `nuxt-native dev <platform>` inside a real VS Code integrated
+ * Runs `vastx-native dev <platform>` inside a real VS Code integrated
  * terminal — not a headless spawned child process. This isn't a stylistic
  * choice: `ns run`'s hot-restart/force-restart/toggle-watcher key commands
  * only work over a real TTY (confirmed by reading
@@ -38,11 +38,11 @@ export class DevSession {
       throw new Error('A dev session is already running — stop it first.')
     }
 
-    this.terminal = vscode.window.createTerminal({ name: 'Nuxt Native', cwd: this.cwd })
+    this.terminal = vscode.window.createTerminal({ name: 'VastX Native', cwd: this.cwd })
     this.terminal.show()
 
     const deviceArgs = deviceId ? ` --device ${deviceId}` : ''
-    this.terminal.sendText(`npx nuxt-native dev ${platform}${deviceArgs}`, true)
+    this.terminal.sendText(`npx vastx-native dev ${platform}${deviceArgs}`, true)
     this.onStateChangeEmitter.fire('running')
   }
 

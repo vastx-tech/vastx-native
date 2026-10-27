@@ -1,4 +1,4 @@
-declare module '#build/nuxt-native/route-manifest.mjs' {
+declare module '#build/vastx-native/route-manifest.mjs' {
   export interface NativeRoute {
     name: string
     path: string

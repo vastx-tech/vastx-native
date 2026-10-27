@@ -57,7 +57,7 @@ export function resolveLength(value: Length): number {
   if (remMatch) return Number(remMatch[1]) * REM_TO_DIP
   const pxMatch = /^(-?\d+(?:\.\d+)?)px$/.exec(value)
   if (pxMatch) return Number(pxMatch[1])
-  throw new Error(`[nuxt-native] Invalid length: "${value}" — expected a spacing token, a number, or a "Npx"/"Nrem" string.`)
+  throw new Error(`[vastx-native] Invalid length: "${value}" — expected a spacing token, a number, or a "Npx"/"Nrem" string.`)
 }
 
 /** Exported for components (e.g. NSkeleton) that need a resolved color string outside a style-object fragment. */

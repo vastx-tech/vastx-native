@@ -39,7 +39,7 @@
 
 <script setup lang="ts">
 // useProducts(), useNativeRouter() and useCartStore() below are all
-// auto-imported (this project's composable, nuxt-native's own, and this
+// auto-imported (this project's composable, vastx-native's own, and this
 // project's Pinia store). ProductCard/SectionHeader (project components)
 // are explicitly imported — component auto-import isn't covered; see this
 // app's README.

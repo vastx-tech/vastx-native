@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 /**
- * Releases nuxt-native: `npm run release -- <version|patch|minor|major> [--npm] [--dry-run]`.
+ * Releases vastx-native: `npm run release -- <version|patch|minor|major> [--npm] [--dry-run]`.
  *
  * A release is a git tag (vX.Y.Z) plus a GitHub Release, so a project can
- * pin `github:vastx-tech/nuxt-native#vX.Y.Z` and `create` can scaffold new
+ * pin `github:vastx-tech/vastx-native#vX.Y.Z` and `create` can scaffold new
  * projects pinned to the release that created them. With --npm it's also
  * published to the npm registry.
  *
@@ -111,7 +111,7 @@ async function main() {
   if (!notes) problems.push('CHANGELOG.md has nothing under "## Unreleased"')
   if (toNpm) {
     if (!npmQuiet(['whoami'])) problems.push('--npm: not logged in to npm (run `npm login` first)')
-    if (npmQuiet(['view', `nuxt-native@${version}`, 'version']) === version) problems.push(`--npm: nuxt-native@${version} is already on npm`)
+    if (npmQuiet(['view', `vastx-native@${version}`, 'version']) === version) problems.push(`--npm: vastx-native@${version} is already on npm`)
   }
 
   console.log(`[release] ${current} -> ${version} (tag ${tag})`)
@@ -132,9 +132,9 @@ async function main() {
 
   git('add', 'package.json', 'CHANGELOG.md', 'dist')
   git('commit', '-m', `Release ${tag}`)
-  git('tag', '-a', tag, '-m', `nuxt-native ${tag}`)
+  git('tag', '-a', tag, '-m', `vastx-native ${tag}`)
   step('push', 'git', ['push', 'origin', 'main', '--follow-tags'])
-  const notesDir = mkdtempSync(join(tmpdir(), 'nuxt-native-release-'))
+  const notesDir = mkdtempSync(join(tmpdir(), 'vastx-native-release-'))
   const notesFile = join(notesDir, 'notes.md')
   writeFileSync(notesFile, `${notes}\n`)
   try {
@@ -143,7 +143,7 @@ async function main() {
     rmSync(notesDir, { recursive: true, force: true })
   }
   if (toNpm) step('npm publish', 'npm', ['publish', '--access', 'public'])
-  console.log(`\n[release] done: ${tag}. Projects can pin "nuxt-native": "github:vastx-tech/nuxt-native#${tag}"${toNpm ? ` or "^${version}" from npm` : ''}.`)
+  console.log(`\n[release] done: ${tag}. Projects can pin "vastx-native": "github:vastx-tech/vastx-native#${tag}"${toNpm ? ` or "^${version}" from npm` : ''}.`)
 }
 
 if (process.argv[1] && fileURLToPath(import.meta.url) === resolve(process.argv[1])) {

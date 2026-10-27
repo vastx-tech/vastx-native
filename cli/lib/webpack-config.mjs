@@ -11,7 +11,7 @@ export const WEBPACK_CONFIG_FILENAME = 'webpack.config.cjs'
  *
  * It's `.cjs`, not `.js`: `@nativescript/webpack` loads this file with a
  * plain `require(configPath)` (confirmed by reading its bin source), and
- * nuxt-native-generated projects have `"type": "module"` in package.json —
+ * vastx-native-generated projects have `"type": "module"` in package.json —
  * under that, a plain `.js` file is loaded as an ES module and `require()`
  * throws ERR_REQUIRE_ESM. `.cjs` is always CommonJS regardless of the
  * package's `"type"`, which is exactly what this file's `require()`/
@@ -28,21 +28,21 @@ export const WEBPACK_CONFIG_FILENAME = 'webpack.config.cjs'
  * correctly in the on-device bundle). Without this file, `.vue` pages have
  * no loader at all and webpack fails immediately on the first import.
  *
- * The `#build/nuxt-native/route-manifest.mjs` alias: useNativeRouter.ts
- * (nuxt-native's own composable) imports its route table from that exact
+ * The `#build/vastx-native/route-manifest.mjs` alias: useNativeRouter.ts
+ * (vastx-native's own composable) imports its route table from that exact
  * specifier — `#build` is a Nuxt-internal alias Nuxt's OWN Vite/webpack
  * build registers, resolving to `.nuxt/`. The native build never goes
  * through Nuxt's builder at all, so that alias doesn't exist here —
  * reproduced directly: `Module not found: Can't resolve
- * '#build/nuxt-native/route-manifest.mjs'`. Aliasing the same literal
- * specifier to this project's own CLI-generated `.nuxt-native/
+ * '#build/vastx-native/route-manifest.mjs'`. Aliasing the same literal
+ * specifier to this project's own CLI-generated `.vastx-native/
  * route-manifest.mjs` lets the identical composable source resolve
  * correctly in both contexts without forking it.
  *
  * `appId` gets embedded directly into the generated file (not read at
  * build time from `nativescript.config.ts`, to avoid this CJS config
  * file needing to parse a `.ts` file itself): it's passed to
- * `NuxtNativeAppIdentifierPlugin` (see app-identifier-webpack-plugin.cjs),
+ * `VastXNativeAppIdentifierPlugin` (see app-identifier-webpack-plugin.cjs),
  * which writes `<output>/package.json` with the project's real app id
  * and whatever entry chunk filename webpack actually emitted —
  * NativeScript's native runtime bootstrap reads that exact file at
@@ -56,7 +56,7 @@ export function ensureWebpackConfig(projectRoot, appId) {
 
   writeFileSync(configPath, `const path = require('node:path')
 const webpack = require('@nativescript/webpack')
-const NuxtNativeAppIdentifierPlugin = require('nuxt-native/cli/lib/app-identifier-webpack-plugin.cjs')
+const VastXNativeAppIdentifierPlugin = require('vastx-native/cli/lib/app-identifier-webpack-plugin.cjs')
 
 module.exports = (env) => {
   webpack.init(env)
@@ -64,8 +64,8 @@ module.exports = (env) => {
 
   webpack.chainWebpack((config) => {
     config.resolve.alias.set(
-      '#build/nuxt-native/route-manifest.mjs$',
-      path.resolve(__dirname, '.nuxt-native/route-manifest.mjs')
+      '#build/vastx-native/route-manifest.mjs$',
+      path.resolve(__dirname, '.vastx-native/route-manifest.mjs')
     )
   })
 
@@ -83,26 +83,26 @@ module.exports = (env) => {
   // import into, so the vue-facing rule only matches vue-loader's already
   // split-out <script> sub-request (resourceQuery contains "type=script").
   webpack.chainWebpack((config) => {
-    const loaderPath = require.resolve('nuxt-native/cli/lib/auto-import-loader.cjs')
+    const loaderPath = require.resolve('vastx-native/cli/lib/auto-import-loader.cjs')
 
-    config.module.rule('nuxt-native-auto-import-ts')
+    config.module.rule('vastx-native-auto-import-ts')
       .enforce('pre')
       .test(/\\.ts$/)
       .exclude.add(/node_modules/).end()
-      .use('nuxt-native-auto-import-loader')
+      .use('vastx-native-auto-import-loader')
       .loader(loaderPath)
 
-    config.module.rule('nuxt-native-auto-import-vue-script')
+    config.module.rule('vastx-native-auto-import-vue-script')
       .enforce('pre')
       .test(/\\.vue$/)
       .resourceQuery(/type=script/)
-      .use('nuxt-native-auto-import-loader')
+      .use('vastx-native-auto-import-loader')
       .loader(loaderPath)
   })
 
   // ForkTsCheckerWebpackPlugin (registered by @nativescript/webpack's own
   // base config whenever the project depends on "typescript", which every
-  // nuxt-native project does) defaults to a flat 4096 MB memory limit for
+  // vastx-native project does) defaults to a flat 4096 MB memory limit for
   // its separate type-checking process, regardless of the machine actually
   // running the build — the exact same class of problem
   // ensureGradleMemorySettings already fixes for Gradle's heap ceiling.
@@ -134,8 +134,8 @@ module.exports = (env) => {
 
   webpack.chainWebpack((config) => {
     config
-      .plugin('nuxt-native-app-identifier')
-      .use(NuxtNativeAppIdentifierPlugin, [{ appId: ${JSON.stringify(appId)} }])
+      .plugin('vastx-native-app-identifier')
+      .use(VastXNativeAppIdentifierPlugin, [{ appId: ${JSON.stringify(appId)} }])
   })
 
   return webpack.resolveConfig()

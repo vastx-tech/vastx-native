@@ -20,7 +20,7 @@ try {
         await import('../mcp-server/bin/server.mjs')
       } catch (error) {
         if (error.code === 'ERR_MODULE_NOT_FOUND' && /@modelcontextprotocol\/sdk|zod/.test(error.message)) {
-          throw new Error('[nuxt-native] MCP support is optional. Install it with: npm install -D @modelcontextprotocol/sdk zod', { cause: error })
+          throw new Error('[vastx-native] MCP support is optional. Install it with: npm install -D @modelcontextprotocol/sdk zod', { cause: error })
         }
         throw error
       }
@@ -56,7 +56,7 @@ try {
     case 'keystore': {
       const [action, ...rest] = args
       if (action !== 'create') {
-        throw new Error('[nuxt-native] Usage: nuxt-native keystore create --alias <name> [--output ./release.keystore] [--validity 10000]')
+        throw new Error('[vastx-native] Usage: vastx-native keystore create --alias <name> [--output ./release.keystore] [--validity 10000]')
       }
       const validity = flagValue(rest, '--validity')
       await keystoreCreate({
@@ -98,35 +98,35 @@ function flagValue(args, flag) {
 }
 
 function printHelp() {
-  console.log(`nuxt-native — build real native iOS/Android apps with Nuxt
+  console.log(`vastx-native — build real native iOS/Android apps with Nuxt
 
 Usage:
-  nuxt-native create <name> [--app-id com.example.app] [--platforms ios,android] [--styling native|tailwind] [--link /path/to/nuxt-native]
+  vastx-native create <name> [--app-id com.example.app] [--platforms ios,android] [--styling native|tailwind] [--link /path/to/vastx-native]
                                       Scaffold a new project, install deps, and wire up native platforms.
-                                      --link points at a local nuxt-native checkout instead of fetching from
+                                      --link points at a local vastx-native checkout instead of fetching from
                                       GitHub (npm symlinks it — no network fetch).
-  nuxt-native init [ios] [android]    Scaffold nativescript.config.ts + native platforms (existing project)
-  nuxt-native dev <ios|android> [ns run flags...]     Build, deploy, and LiveSync to a device/simulator
-  nuxt-native build <ios|android> [ns build flags...] Produce a native build artifact
-  nuxt-native doctor                  Check the project for every known misconfiguration, then run \`ns info\`
-  nuxt-native mcp                     Start the MCP server over stdio for an AI coding agent
-  nuxt-native keystore create --alias <name> [--output ./release.keystore] [--validity 10000]
+  vastx-native init [ios] [android]    Scaffold nativescript.config.ts + native platforms (existing project)
+  vastx-native dev <ios|android> [ns run flags...]     Build, deploy, and LiveSync to a device/simulator
+  vastx-native build <ios|android> [ns build flags...] Produce a native build artifact
+  vastx-native doctor                  Check the project for every known misconfiguration, then run \`ns info\`
+  vastx-native mcp                     Start the MCP server over stdio for an AI coding agent
+  vastx-native keystore create --alias <name> [--output ./release.keystore] [--validity 10000]
                                       Generate an Android release-signing keystore
-  nuxt-native analyze <ios|android>   Build with a bundle size report (report/report.html)
-  nuxt-native lint                    Check every navigate() call against real routes
-  nuxt-native clean                   Remove platforms/, hooks/, and cached native build artifacts
-  nuxt-native version [show]          Show the current version + versionCode
-  nuxt-native version bump <major|minor|patch>
+  vastx-native analyze <ios|android>   Build with a bundle size report (report/report.html)
+  vastx-native lint                    Check every navigate() call against real routes
+  vastx-native clean                   Remove platforms/, hooks/, and cached native build artifacts
+  vastx-native version [show]          Show the current version + versionCode
+  vastx-native version bump <major|minor|patch>
                                       Bump package.json's version + versionCode, sync to native files
-  nuxt-native version sync            Write the current version/versionCode to native platform files
+  vastx-native version sync            Write the current version/versionCode to native platform files
 
 Flags after <ios|android> are forwarded as-is to the underlying \`ns run\`/
 \`ns build\` command — e.g. a signed Android release:
-  nuxt-native build android --release --key-store-path ./my.keystore \\
+  vastx-native build android --release --key-store-path ./my.keystore \\
     --key-store-password *** --key-store-alias *** --key-store-alias-password ***
 
-...or generate a keystore once with \`nuxt-native keystore create\`, set the
-NUXT_NATIVE_KEYSTORE_* environment variables it prints, and just run
-\`nuxt-native build android --release\` — no flags to retype.
+...or generate a keystore once with \`vastx-native keystore create\`, set the
+VASTX_NATIVE_KEYSTORE_* environment variables it prints, and just run
+\`vastx-native build android --release\` — no flags to retype.
 `)
 }

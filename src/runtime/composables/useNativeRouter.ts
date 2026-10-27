@@ -1,8 +1,8 @@
 import { readonly, ref } from 'vue'
 import { Frame } from '@nativescript/core'
 import { $navigateBack, $navigateTo } from 'nativescript-vue'
-import { routes } from '#build/nuxt-native/route-manifest.mjs'
-import type { NativeRoute } from '#build/nuxt-native/route-manifest.mjs'
+import { routes } from '#build/vastx-native/route-manifest.mjs'
+import type { NativeRoute } from '#build/vastx-native/route-manifest.mjs'
 
 // nativescript-vue exports the `$navigateBack`/`$navigateTo` functions from
 // its package root, but not their option types (only reachable via its
@@ -73,7 +73,7 @@ function findRoute(name: string): NativeRoute {
   const route = (routes as NativeRoute[]).find(r => r.name === name)
   if (!route) {
     const known = (routes as NativeRoute[]).map(r => r.name).join(', ')
-    throw new Error(`[nuxt-native] No route named "${name}". Known routes: ${known}`)
+    throw new Error(`[vastx-native] No route named "${name}". Known routes: ${known}`)
   }
   return route
 }

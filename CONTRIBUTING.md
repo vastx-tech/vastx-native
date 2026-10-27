@@ -73,6 +73,6 @@ script checks the login and that the version isn't on npm yet before it
 changes anything.
 
 The tag matters beyond GitHub: `create` pins new projects to
-`github:vastx-tech/nuxt-native#v<version in package.json>`, so every version in
+`github:vastx-tech/vastx-native#v<version in package.json>`, so every version in
 package.json on `main` must have a tag. Only change the version through the
 release script.

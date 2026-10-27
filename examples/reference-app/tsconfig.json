@@ -18,9 +18,9 @@
   "include": [
     "app/**/*.ts",
     "app/**/*.vue",
-    ".nuxt-native/**/*.js",
-    ".nuxt-native/**/*.mjs",
-    ".nuxt-native/**/*.vue",
-    ".nuxt-native/**/*.d.ts"
+    ".vastx-native/**/*.js",
+    ".vastx-native/**/*.mjs",
+    ".vastx-native/**/*.vue",
+    ".vastx-native/**/*.d.ts"
   ]
 }

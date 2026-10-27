@@ -8,7 +8,7 @@ export interface PersistOptions {
 }
 
 // Structural, so this file doesn't need pinia's types (pinia is an
-// optional dependency of the app, not of nuxt-native).
+// optional dependency of the app, not of vastx-native).
 interface StoreLike {
   $id: string
   $state: Record<string, unknown>

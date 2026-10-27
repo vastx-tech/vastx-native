@@ -2,12 +2,12 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { dirname } from 'node:path'
 
 /**
- * Idempotently writes a marker-delimited block into a file nuxt-native
+ * Idempotently writes a marker-delimited block into a file vastx-native
  * shares with a project's own hand-authored content (App_Resources/
  * Android/app.gradle, currently the only real user of this) — reruns
- * replace only nuxt-native's own section between the markers, never
+ * replace only vastx-native's own section between the markers, never
  * anything else the file has. If the file doesn't have this marker yet
- * (a fresh file, or a project's own pre-existing app.gradle nuxt-native
+ * (a fresh file, or a project's own pre-existing app.gradle vastx-native
  * has never touched), the block is appended rather than assumed to own
  * the whole file.
  *
@@ -19,8 +19,8 @@ import { dirname } from 'node:path'
  * name.
  */
 export function ensureMarkedBlock(path, marker, block) {
-  const startMarker = `// nuxt-native: ${marker} — see nuxt-native's docs`
-  const endMarker = `// nuxt-native: end ${marker}`
+  const startMarker = `// vastx-native: ${marker} — see vastx-native's docs`
+  const endMarker = `// vastx-native: end ${marker}`
   const fullBlock = `${startMarker}\n${block.trim()}\n${endMarker}\n`
 
   if (!existsSync(path)) {

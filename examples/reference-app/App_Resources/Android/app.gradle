@@ -1,13 +1,13 @@
-// nuxt-native: websocket support (OkHttp) — see nuxt-native's docs
+// vastx-native: websocket support (OkHttp) — see vastx-native's docs
 dependencies {
     implementation 'com.squareup.okhttp3:okhttp:4.12.0'
 }
-// nuxt-native: end websocket support (OkHttp)
+// vastx-native: end websocket support (OkHttp)
 
-// nuxt-native: minimum Android version — see nuxt-native's docs
+// vastx-native: minimum Android version — see vastx-native's docs
 android {
     defaultConfig {
         minSdkVersion 23
     }
 }
-// nuxt-native: end minimum Android version
+// vastx-native: end minimum Android version

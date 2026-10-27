@@ -1,14 +1,14 @@
 {
-  "name": "nuxt-native-vscode",
-  "displayName": "Nuxt Native",
-  "description": "Run, hot-reload, and manage Nuxt Native projects from VS Code — device picker, hot restart, and every nuxt-native CLI command from the Command Palette.",
+  "name": "vastx-native-vscode",
+  "displayName": "VastX Native",
+  "description": "Run, hot-reload, and manage VastX Native projects from VS Code — device picker, hot restart, and every vastx-native CLI command from the Command Palette.",
   "version": "0.1.0",
   "publisher": "vastx-tech",
   "license": "MIT",
   "icon": "icon.png",
   "repository": {
     "type": "git",
-    "url": "https://github.com/vastx-tech/nuxt-native"
+    "url": "https://github.com/vastx-tech/vastx-native"
   },
   "engines": {
     "vscode": "^1.85.0"
@@ -23,60 +23,60 @@
   "contributes": {
     "commands": [
       {
-        "command": "nuxtNative.create",
-        "title": "Nuxt Native: Create Project..."
+        "command": "vastxNative.create",
+        "title": "VastX Native: Create Project..."
       },
       {
-        "command": "nuxtNative.init",
-        "title": "Nuxt Native: Init (add to existing project)"
+        "command": "vastxNative.init",
+        "title": "VastX Native: Init (add to existing project)"
       },
       {
-        "command": "nuxtNative.run",
-        "title": "Nuxt Native: Run..."
+        "command": "vastxNative.run",
+        "title": "VastX Native: Run..."
       },
       {
-        "command": "nuxtNative.hotRestart",
-        "title": "Nuxt Native: Hot Restart"
+        "command": "vastxNative.hotRestart",
+        "title": "VastX Native: Hot Restart"
       },
       {
-        "command": "nuxtNative.forceRestart",
-        "title": "Nuxt Native: Force Restart (rebuild native)"
+        "command": "vastxNative.forceRestart",
+        "title": "VastX Native: Force Restart (rebuild native)"
       },
       {
-        "command": "nuxtNative.toggleWatcher",
-        "title": "Nuxt Native: Toggle File Watcher"
+        "command": "vastxNative.toggleWatcher",
+        "title": "VastX Native: Toggle File Watcher"
       },
       {
-        "command": "nuxtNative.stop",
-        "title": "Nuxt Native: Stop"
+        "command": "vastxNative.stop",
+        "title": "VastX Native: Stop"
       },
       {
-        "command": "nuxtNative.build",
-        "title": "Nuxt Native: Build..."
+        "command": "vastxNative.build",
+        "title": "VastX Native: Build..."
       },
       {
-        "command": "nuxtNative.doctor",
-        "title": "Nuxt Native: Doctor"
+        "command": "vastxNative.doctor",
+        "title": "VastX Native: Doctor"
       },
       {
-        "command": "nuxtNative.analyze",
-        "title": "Nuxt Native: Analyze Bundle Size..."
+        "command": "vastxNative.analyze",
+        "title": "VastX Native: Analyze Bundle Size..."
       },
       {
-        "command": "nuxtNative.lint",
-        "title": "Nuxt Native: Lint Routes"
+        "command": "vastxNative.lint",
+        "title": "VastX Native: Lint Routes"
       },
       {
-        "command": "nuxtNative.clean",
-        "title": "Nuxt Native: Clean"
+        "command": "vastxNative.clean",
+        "title": "VastX Native: Clean"
       },
       {
-        "command": "nuxtNative.keystoreCreate",
-        "title": "Nuxt Native: Create Signing Keystore..."
+        "command": "vastxNative.keystoreCreate",
+        "title": "VastX Native: Create Signing Keystore..."
       },
       {
-        "command": "nuxtNative.selectDevice",
-        "title": "Nuxt Native: Select Device..."
+        "command": "vastxNative.selectDevice",
+        "title": "VastX Native: Select Device..."
       }
     ]
   },

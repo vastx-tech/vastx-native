@@ -1,22 +1,22 @@
 import { readFileSync } from 'node:fs'
 import { ENTRY_FILE } from './generate-entry.mjs'
 
-// Until nuxt-native is published to npm, generated projects depend on it
-// straight from GitHub, pinned to the release tag of the nuxt-native that
+// Until vastx-native is published to npm, generated projects depend on it
+// straight from GitHub, pinned to the release tag of the vastx-native that
 // created them (scripts/release.mjs tags every version as vX.Y.Z). Without
 // the tag, every install would take whatever is on main that day, so two
 // machines could build the same app with different framework code.
 // Once it's published to npm, this is the one line to change.
-const { version: NUXT_NATIVE_VERSION } = JSON.parse(readFileSync(new URL('../../package.json', import.meta.url), 'utf8'))
-export const NUXT_NATIVE_DEPENDENCY_SPEC = `github:vastx-tech/nuxt-native#v${NUXT_NATIVE_VERSION}`
+const { version: VASTX_NATIVE_VERSION } = JSON.parse(readFileSync(new URL('../../package.json', import.meta.url), 'utf8'))
+export const VASTX_NATIVE_DEPENDENCY_SPEC = `github:vastx-tech/vastx-native#v${VASTX_NATIVE_VERSION}`
 
-export function packageJson(appName, dependencySpec = NUXT_NATIVE_DEPENDENCY_SPEC, styling = 'native') {
+export function packageJson(appName, dependencySpec = VASTX_NATIVE_DEPENDENCY_SPEC, styling = 'native') {
   return `${JSON.stringify(
     {
       name: appName,
       private: true,
       // Deliberately NOT "type": "module". This project's own generated
-      // files (webpack.config.cjs, .nuxt-native/app.js — the latter only
+      // files (webpack.config.cjs, .vastx-native/app.js — the latter only
       // ever consumed through webpack's own module system, never Node's)
       // don't need it, but NativeScript's Android runtime ships plain
       // CommonJS build tooling under platforms/android/build-tools/ that
@@ -32,17 +32,17 @@ export function packageJson(appName, dependencySpec = NUXT_NATIVE_DEPENDENCY_SPE
       // that's not just theoretical).
       main: ENTRY_FILE,
       scripts: {
-        'native:init': 'nuxt-native init',
-        'native:dev:ios': 'nuxt-native dev ios',
-        'native:dev:android': 'nuxt-native dev android',
-        'native:build:ios': 'nuxt-native build ios --release',
-        'native:build:android': 'nuxt-native build android --release',
+        'native:init': 'vastx-native init',
+        'native:dev:ios': 'vastx-native dev ios',
+        'native:dev:android': 'vastx-native dev android',
+        'native:build:ios': 'vastx-native build ios --release',
+        'native:build:android': 'vastx-native build android --release',
         // Type-checks .vue files too, against the auto-import and component
-        // types nuxt-native generates in .nuxt-native/ on every init/dev/build.
+        // types vastx-native generates in .vastx-native/ on every init/dev/build.
         typecheck: 'vue-tsc --noEmit'
       },
       dependencies: {
-        'nuxt-native': dependencySpec,
+        'vastx-native': dependencySpec,
         'nativescript-vue': '^3.1.2',
         '@nativescript/core': '^9.1.2',
         nuxt: '^4.0.0'
@@ -78,9 +78,9 @@ export function packageJson(appName, dependencySpec = NUXT_NATIVE_DEPENDENCY_SPE
 }
 
 export function projectReadme(styling = 'native') {
-  return `# Nuxt Native app
+  return `# VastX Native app
 
-Run on Android with \`npx nuxt-native dev android\` (or use \`ios\` on macOS).
+Run on Android with \`npx vastx-native dev android\` (or use \`ios\` on macOS).
 
 ${styling === 'tailwind' ? 'This project uses Tailwind v3 with the NativeScript adapter. Read STYLING.md before changing layout or spacing.' : 'This project uses native style objects. Add app/app.css for shared NativeScript CSS, or choose --styling tailwind when creating a project.'}
 
@@ -91,7 +91,7 @@ The framework includes an optional MCP server. Install its dependencies first:
 \`npm install -D @modelcontextprotocol/sdk zod\`
 
 No separate clone or server folder is needed.
-Configure your agent to launch \`npx nuxt-native mcp\` from this project directory.
+Configure your agent to launch \`npx vastx-native mcp\` from this project directory.
 The agent starts and stops the server; you do not need to run it in another terminal.
 It uses stdio, so a manual launch waits for MCP messages rather than opening a web page.
 
@@ -100,21 +100,21 @@ For clients using the \`mcpServers\` format, such as Claude Code's \`.mcp.json\`
 \`\`\`json
 {
   "mcpServers": {
-    "nuxt-native": {
+    "vastx-native": {
       "command": "npx",
-      "args": ["nuxt-native", "mcp"]
+      "args": ["vastx-native", "mcp"]
     }
   }
 }
 \`\`\`
 
 If your Windows client cannot launch npx directly, use command \`cmd\` and
-args \`["/c", "npx", "nuxt-native", "mcp"]\`.
+args \`["/c", "npx", "vastx-native", "mcp"]\`.
 For clients launched elsewhere, set their working directory to this project or
 use command \`node\` with the absolute path to
-\`node_modules/nuxt-native/bin/nuxt-native.mjs\` followed by \`mcp\` as arguments.
+\`node_modules/vastx-native/bin/vastx-native.mjs\` followed by \`mcp\` as arguments.
 
-Try: "Use nuxt-native to run doctor and lint for this project's absolute path,
+Try: "Use vastx-native to run doctor and lint for this project's absolute path,
 then build Android, install it on my connected device, and check the logs.
 Run the steps sequentially."
 
@@ -128,7 +128,7 @@ This development server is separate from the app's useMcpClient() HTTP client.
 
 export function nuxtConfig(appId, appName, styling = 'native') {
   return `export default defineNuxtConfig({
-  modules: ['nuxt-native'],
+  modules: ['vastx-native'],
   compatibilityDate: '${new Date().toISOString().slice(0, 10)}',
 
   native: {
@@ -177,7 +177,7 @@ export function tsconfig() {
         // glob pattern spells — listing "*.vue" in `include` does not
         // register .vue as a recognized extension. None of our generated
         // files are bare .ts, so without allowJs literally nothing in
-        // `include` ever counts as a root file. With it, .nuxt-native/
+        // `include` ever counts as a root file. With it, .vastx-native/
         // app.js (plain JS) does, which is enough to satisfy "at least
         // one input" — reproduced/fixed via a real webpack compile, not
         // just config resolution.
@@ -212,15 +212,15 @@ export function tsconfig() {
       include: [
         'app/**/*.ts',
         'app/**/*.vue',
-        '.nuxt-native/**/*.js',
-        '.nuxt-native/**/*.mjs',
-        '.nuxt-native/**/*.vue',
+        '.vastx-native/**/*.js',
+        '.vastx-native/**/*.mjs',
+        '.vastx-native/**/*.vue',
         // Ambient auto-import declarations (see auto-imports.mjs's
         // renderAutoImportTypes) — without this, vue-tsc/the editor's TS
         // server would flag every auto-imported composable/util as
         // "Cannot find name", even though the actual build resolves them
         // correctly via the auto-import webpack loader.
-        '.nuxt-native/**/*.d.ts'
+        '.vastx-native/**/*.d.ts'
       ]
     },
     null,
@@ -236,7 +236,7 @@ export function gitignore() {
 .cache
 dist
 node_modules
-.nuxt-native
+.vastx-native
 platforms
 hooks
 *.hprof
@@ -325,14 +325,14 @@ const TAILWIND_CORE_PLUGINS = [
 ]
 
 export function tailwindConfig() {
-  return `// Generated by \`nuxt-native create\`. \`corePlugins\` is deliberately an
+  return `// Generated by \`vastx-native create\`. \`corePlugins\` is deliberately an
 // allowlist (not the full Tailwind set) — see the comment above
-// TAILWIND_CORE_PLUGINS in nuxt-native's own cli/lib/scaffold-templates.mjs
+// TAILWIND_CORE_PLUGINS in vastx-native's own cli/lib/scaffold-templates.mjs
 // for exactly which utilities NativeScript's CSS engine can and can't
 // apply, and why. Safe to edit, but removing entries here doesn't make
 // NativeScript support them — it only controls what Tailwind generates.
 module.exports = {
-  content: ['./app/**/*.{vue,js,ts}', './.nuxt-native/**/*.{js,vue}'],
+  content: ['./app/**/*.{vue,js,ts}', './.vastx-native/**/*.{js,vue}'],
   darkMode: ['class', '.ns-dark'],
   corePlugins: ${JSON.stringify(TAILWIND_CORE_PLUGINS, null, 2).replace(/\n/g, '\n  ')},
   theme: {
@@ -349,7 +349,7 @@ export function postcssConfig() {
 module.exports = {
   plugins: [
     require('tailwindcss'),
-    require('nuxt-native/cli/lib/native-tailwind.cjs')()
+    require('vastx-native/cli/lib/native-tailwind.cjs')()
   ]
 }
 `
@@ -364,8 +364,8 @@ export function appCss() {
 
 export function appVue() {
   return `<template>
-  <!-- Unused at native runtime: nativescript-vue mounts .nuxt-native/root-frame.vue
-       (generated by \`nuxt-native init\`/\`dev\`/\`build\` from app/pages) instead of
+  <!-- Unused at native runtime: nativescript-vue mounts .vastx-native/root-frame.vue
+       (generated by \`vastx-native init\`/\`dev\`/\`build\` from app/pages) instead of
        Nuxt's own client entry. This file only exists so \`nuxi dev\`/typecheck have
        a root component to resolve. -->
   <div />
@@ -378,7 +378,7 @@ export function nativeIndexPage() {
   <NPage title="Counter" :scrollable="false">
     <GridLayout rows="*" columns="*">
       <StackLayout verticalAlignment="center" horizontalAlignment="center">
-        <NText text="Welcome to Nuxt Native" :style="{ fontSize: 24, fontWeight: 'bold', textAlignment: 'center', marginBottom: 16 }" />
+        <NText text="Welcome to VastX Native" :style="{ fontSize: 24, fontWeight: 'bold', textAlignment: 'center', marginBottom: 16 }" />
         <NText :text="String(count)" :style="{ fontSize: 40, textAlignment: 'center', marginBottom: 16 }" />
         <GridLayout columns="*, *" :style="{ marginLeft: 24, marginRight: 24 }">
           <NButton col="0" text="−" variant="secondary" @tap="count--" />
@@ -401,7 +401,7 @@ export function indexPage() {
   <NPage title="Counter" :scrollable="false">
     <GridLayout rows="*" columns="*">
       <NFlex class="flex-col items-center justify-center p-5">
-        <NText text="Welcome to Nuxt Native" class="text-2xl font-bold text-center mb-4" />
+        <NText text="Welcome to VastX Native" class="text-2xl font-bold text-center mb-4" />
         <NText text="Tap the buttons to change the count." class="text-base text-center mb-4" />
         <NText :text="String(count)" class="text-5xl font-bold text-center" />
       </NFlex>

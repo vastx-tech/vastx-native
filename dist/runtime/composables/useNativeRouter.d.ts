@@ -1,5 +1,5 @@
 import { $navigateBack } from 'nativescript-vue';
-import type { NativeRoute } from '#build/nuxt-native/route-manifest.mjs';
+import type { NativeRoute } from '#build/vastx-native/route-manifest.mjs';
 type NavigateBackOptions = NonNullable<Parameters<typeof $navigateBack>[0]>;
 export interface NavigateOptions {
     /** Passed through as the page's navigation context / component props. */

@@ -4,7 +4,7 @@ import { join, resolve } from 'node:path'
 import { scanPages } from './scan-pages.mjs'
 import { collectAutoImportEntries, renderAutoImportTypes } from './auto-imports.mjs'
 
-const OUT_DIR = '.nuxt-native'
+const OUT_DIR = '.vastx-native'
 
 /**
  * Path (relative to project root) to the generated bootstrap entry —
@@ -29,12 +29,12 @@ export function generateEntry({ projectRoot = process.cwd(), pagesDir = 'app/pag
   const resolvedPagesDir = resolve(projectRoot, pagesDir)
 
   if (!existsSync(resolvedPagesDir)) {
-    throw new Error(`[nuxt-native] Pages directory not found: ${resolvedPagesDir}`)
+    throw new Error(`[vastx-native] Pages directory not found: ${resolvedPagesDir}`)
   }
 
   const routes = scanPages(resolvedPagesDir)
   if (routes.length === 0) {
-    throw new Error(`[nuxt-native] No .vue pages found in ${resolvedPagesDir}`)
+    throw new Error(`[vastx-native] No .vue pages found in ${resolvedPagesDir}`)
   }
 
   const initial = routes.find(r => r.name === 'index') ?? routes[0]
@@ -48,9 +48,9 @@ export function generateEntry({ projectRoot = process.cwd(), pagesDir = 'app/pag
 
   // @nativescript/webpack's app-css-loader resolves "./app.css" relative to
   // the entry file's own directory (confirmed against its source) — i.e.
-  // .nuxt-native/app.css, not the project's real app/app.css. That real
+  // .vastx-native/app.css, not the project's real app/app.css. That real
   // file is the one thing here users actually author (Tailwind directives,
-  // custom CSS); everything else in .nuxt-native/ is generated. So this
+  // custom CSS); everything else in .vastx-native/ is generated. So this
   // copies it into place on every generate pass, same as the other
   // generated files, instead of asking users to hand-maintain a duplicate.
   // Optional: projects that don't use app/app.css (or predate this feature)
@@ -106,30 +106,30 @@ import Initial from ${JSON.stringify(initial.file)}
 // (Vue's app-level component registry), just invoked directly instead of
 // through Nuxt's auto-import codegen.
 const RUNTIME_COMPONENTS = [
-  { tag: 'NPage', specifier: 'nuxt-native/runtime/components/NPage.vue' },
-  { tag: 'NActionBar', specifier: 'nuxt-native/runtime/components/NActionBar.vue' },
-  { tag: 'NTabs', specifier: 'nuxt-native/runtime/components/NTabs.vue' },
-  { tag: 'NFlex', specifier: 'nuxt-native/runtime/components/NFlex.vue' },
-  { tag: 'NButton', specifier: 'nuxt-native/runtime/components/NButton.vue' },
-  { tag: 'NText', specifier: 'nuxt-native/runtime/components/NText.vue' },
-  { tag: 'NInput', specifier: 'nuxt-native/runtime/components/NInput.vue' },
-  { tag: 'NCard', specifier: 'nuxt-native/runtime/components/NCard.vue' },
-  { tag: 'NSwitch', specifier: 'nuxt-native/runtime/components/NSwitch.vue' },
-  { tag: 'NSpinner', specifier: 'nuxt-native/runtime/components/NSpinner.vue' },
-  { tag: 'NAvatar', specifier: 'nuxt-native/runtime/components/NAvatar.vue' },
-  { tag: 'NBadge', specifier: 'nuxt-native/runtime/components/NBadge.vue' },
-  { tag: 'NDivider', specifier: 'nuxt-native/runtime/components/NDivider.vue' },
-  { tag: 'NContainer', specifier: 'nuxt-native/runtime/components/NContainer.vue' },
-  { tag: 'NetworkImage', specifier: 'nuxt-native/runtime/components/NetworkImage.vue' },
-  { tag: 'CachedImage', specifier: 'nuxt-native/runtime/components/CachedImage.vue' },
-  { tag: 'NSkeleton', specifier: 'nuxt-native/runtime/components/NSkeleton.vue' },
+  { tag: 'NPage', specifier: 'vastx-native/runtime/components/NPage.vue' },
+  { tag: 'NActionBar', specifier: 'vastx-native/runtime/components/NActionBar.vue' },
+  { tag: 'NTabs', specifier: 'vastx-native/runtime/components/NTabs.vue' },
+  { tag: 'NFlex', specifier: 'vastx-native/runtime/components/NFlex.vue' },
+  { tag: 'NButton', specifier: 'vastx-native/runtime/components/NButton.vue' },
+  { tag: 'NText', specifier: 'vastx-native/runtime/components/NText.vue' },
+  { tag: 'NInput', specifier: 'vastx-native/runtime/components/NInput.vue' },
+  { tag: 'NCard', specifier: 'vastx-native/runtime/components/NCard.vue' },
+  { tag: 'NSwitch', specifier: 'vastx-native/runtime/components/NSwitch.vue' },
+  { tag: 'NSpinner', specifier: 'vastx-native/runtime/components/NSpinner.vue' },
+  { tag: 'NAvatar', specifier: 'vastx-native/runtime/components/NAvatar.vue' },
+  { tag: 'NBadge', specifier: 'vastx-native/runtime/components/NBadge.vue' },
+  { tag: 'NDivider', specifier: 'vastx-native/runtime/components/NDivider.vue' },
+  { tag: 'NContainer', specifier: 'vastx-native/runtime/components/NContainer.vue' },
+  { tag: 'NetworkImage', specifier: 'vastx-native/runtime/components/NetworkImage.vue' },
+  { tag: 'CachedImage', specifier: 'vastx-native/runtime/components/CachedImage.vue' },
+  { tag: 'NSkeleton', specifier: 'vastx-native/runtime/components/NSkeleton.vue' },
   // NSvg/NIconButton are available for selective registration too — they compile fine
   // without @nativescript-community/ui-svg installed, since their own
   // templates only reference the <SVGView> tag name as a string, resolved
   // at runtime through nativescript-vue's element registry (see
   // isUiSvgInstalled() below). Only that registry entry is conditional.
-  { tag: 'NSvg', specifier: 'nuxt-native/runtime/components/NSvg.vue' },
-  { tag: 'NIconButton', specifier: 'nuxt-native/runtime/components/NIconButton.vue' }
+  { tag: 'NSvg', specifier: 'vastx-native/runtime/components/NSvg.vue' },
+  { tag: 'NIconButton', specifier: 'vastx-native/runtime/components/NIconButton.vue' }
   // NBottomSheet deliberately excluded: it's shown imperatively via
   // useBottomSheet()'s $showModal call (which references it by direct JS
   // import, not by template tag name), never used as a template tag
@@ -232,7 +232,7 @@ function renderAppEntry({ components = RUNTIME_COMPONENTS, usePinia, useUiSvg } 
     .join('\n')
 
   // piniaPersist only acts on stores that opt in with `persist`.
-  const piniaImport = usePinia ? `import { createPinia } from 'pinia'\nimport { piniaPersist } from 'nuxt-native/runtime/pinia-persist.js'\n` : ''
+  const piniaImport = usePinia ? `import { createPinia } from 'pinia'\nimport { piniaPersist } from 'vastx-native/runtime/pinia-persist.js'\n` : ''
   const piniaUse = usePinia ? '  .use(createPinia().use(piniaPersist))\n' : ''
 
   const uiSvgImport = useUiSvg ? `import { SVGView } from '@nativescript-community/ui-svg'\n` : ''
@@ -245,8 +245,8 @@ function renderAppEntry({ components = RUNTIME_COMPONENTS, usePinia, useUiSvg } 
   const uiSvgRegister = useUiSvg ? `  .registerElement('SVGView', () => SVGView)\n` : ''
 
   return `import { createApp } from 'nativescript-vue'
-import { applyLabelClippingFix } from 'nuxt-native/runtime/label-clipping-fix.js'
-import { vTap } from 'nuxt-native/runtime/native-tap.js'
+import { applyLabelClippingFix } from 'vastx-native/runtime/label-clipping-fix.js'
+import { vTap } from 'vastx-native/runtime/native-tap.js'
 ${piniaImport}${uiSvgImport}import RootFrame from './root-frame.vue'
 ${imports}
 

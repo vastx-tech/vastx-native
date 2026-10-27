@@ -17,7 +17,7 @@ function loadVueCompiler(projectRoot) {
       // not installed under this name; try the next one
     }
   }
-  throw new Error('nuxt-native: could not resolve vue/compiler-sfc (normally installed with nativescript-vue)')
+  throw new Error('vastx-native: could not resolve vue/compiler-sfc (normally installed with nativescript-vue)')
 }
 
 module.exports = { loadVueCompiler }

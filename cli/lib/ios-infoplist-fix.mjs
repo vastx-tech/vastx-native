@@ -2,14 +2,14 @@ import { existsSync, readFileSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 
 /**
- * A real, reproduced NativeScript-CLI-level bug, not a nuxt-native one:
+ * A real, reproduced NativeScript-CLI-level bug, not a vastx-native one:
  * `ns platform add ios` can scaffold `App_Resources/iOS/Info.plist` with
  * only `CFBundleDisplayName`/`CFBundleName` — missing every other key a
  * real, working iOS app needs. Confirmed by downloading and diffing the
  * actual template NativeScript's own scaffolding is supposed to produce
  * (`@nativescript/template-hello-world-ts@9.1.1`'s own
  * `App_Resources/iOS/Info.plist`) against a real broken one reproduced on
- * a fresh `nuxt-native create --platforms ios` project — every key below
+ * a fresh `vastx-native create --platforms ios` project — every key below
  * is missing from the broken one and present in the real template.
  *
  * Three real, independently-confirmed symptoms trace back to this:

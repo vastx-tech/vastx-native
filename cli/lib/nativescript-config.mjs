@@ -39,7 +39,7 @@ export function ensureNativeScriptConfig(projectRoot, { appId }) {
 
 export default {
   id: ${JSON.stringify(appId)},
-  appPath: '.nuxt-native',
+  appPath: '.vastx-native',
   appResourcesPath: 'App_Resources',
   main: ${JSON.stringify(ENTRY_FILE)},
   bundlerConfigPath: ${JSON.stringify(WEBPACK_CONFIG_FILENAME)},

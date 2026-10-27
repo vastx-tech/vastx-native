@@ -13,13 +13,13 @@ export async function init({ platforms } = {}) {
   const targets = platforms?.length ? platforms : config.platforms
 
   const configPath = ensureNativeScriptConfig(process.cwd(), config)
-  console.log(`[nuxt-native] nativescript.config.ts ready at ${configPath}`)
+  console.log(`[vastx-native] nativescript.config.ts ready at ${configPath}`)
 
   const webpackConfigPath = ensureWebpackConfig(process.cwd(), config.appId)
-  console.log(`[nuxt-native] webpack config ready at ${webpackConfigPath}`)
+  console.log(`[vastx-native] webpack config ready at ${webpackConfigPath}`)
 
   generateEntry({ pagesDir: 'app/pages' })
-  console.log('[nuxt-native] Generated .nuxt-native/ bootstrap from app/pages')
+  console.log('[vastx-native] Generated .vastx-native/ bootstrap from app/pages')
 
   for (const platform of targets) {
     // `ns platform add` exits non-zero when the platform is already added
@@ -28,14 +28,14 @@ export async function init({ platforms } = {}) {
     // already added" and still exited with code 127) — run()'s exit-code
     // check can't tell that apart from a real failure, so it would abort
     // init() here every time, before ever reaching applySplashBranding()
-    // below. `nuxt-native init` is supposed to be safe to rerun on a
+    // below. `vastx-native init` is supposed to be safe to rerun on a
     // project in any state, so check for the platform's own directory
     // first instead of relying on the CLI's exit code for this case.
     if (existsSync(join(process.cwd(), 'platforms', platform))) {
-      console.log(`[nuxt-native] platforms/${platform} already exists, skipping ns platform add`)
+      console.log(`[vastx-native] platforms/${platform} already exists, skipping ns platform add`)
       continue
     }
-    console.log(`[nuxt-native] ns platform add ${platform} (scaffolds App_Resources on first run)`)
+    console.log(`[vastx-native] ns platform add ${platform} (scaffolds App_Resources on first run)`)
     await run('npx', ['--yes', 'nativescript', 'platform', 'add', platform])
   }
 
@@ -44,14 +44,14 @@ export async function init({ platforms } = {}) {
   // covers the case where App_Resources already existed (so the platform
   // loop above was a no-op) but was never branded yet.
   applySplashBranding(join(process.cwd(), 'App_Resources'), targets)
-  console.log('[nuxt-native] Applied Nuxt Native splash screen branding')
+  console.log('[vastx-native] Applied VastX Native splash screen branding')
 
   // Everything below is safe to call on every init/dev/build, not just a
   // project's first init — see ensure-project-setup.mjs. Called here too
-  // (not only from dev/build) so `nuxt-native init` alone still leaves a
+  // (not only from dev/build) so `vastx-native init` alone still leaves a
   // project fully configured, matching its documented behavior before
   // this was factored out.
   await ensureProjectSetup(process.cwd(), config, targets)
 
-  console.log('[nuxt-native] Init complete. Next: nuxt-native dev <ios|android>')
+  console.log('[vastx-native] Init complete. Next: vastx-native dev <ios|android>')
 }

@@ -9,21 +9,21 @@ import {
 import type { NuxtPage } from '@nuxt/schema'
 import { defu } from 'defu'
 import { generateRouteManifest, renderRouteManifestModule } from './build/generate-routes'
-import type { NuxtNativeOptions } from './types'
+import type { VastXNativeOptions } from './types'
 
 export * from './types'
 
-export default defineNuxtModule<NuxtNativeOptions>({
+export default defineNuxtModule<VastXNativeOptions>({
   meta: {
-    name: 'nuxt-native',
+    name: 'vastx-native',
     configKey: 'native',
     compatibility: {
       nuxt: '>=3.14.0'
     }
   },
   defaults: {
-    appId: 'org.nuxtnative.app',
-    appName: 'NuxtNativeApp',
+    appId: 'org.vastxnative.app',
+    appName: 'VastXNativeApp',
     platforms: ['ios', 'android'],
     entry: 'app/app.vue',
     styling: 'auto',
@@ -34,7 +34,7 @@ export default defineNuxtModule<NuxtNativeOptions>({
 
     if (nuxt.options.ssr) {
       console.warn(
-        '[nuxt-native] Disabling SSR: native apps render on-device only, there is no server response to hydrate.'
+        '[vastx-native] Disabling SSR: native apps render on-device only, there is no server response to hydrate.'
       )
       nuxt.options.ssr = false
     }
@@ -49,7 +49,7 @@ export default defineNuxtModule<NuxtNativeOptions>({
     // way any Nuxt module's are. This covers editor/type-checking DX today;
     // the on-device NativeScript build does not yet share this auto-import
     // step (see ARCHITECTURE.md's status table), so native pages should
-    // still import explicitly from "nuxt-native" for now.
+    // still import explicitly from "vastx-native" for now.
     addImportsDir(resolver.resolve('./runtime/composables'))
     addComponentsDir({
       path: resolver.resolve('./runtime/components'),
@@ -76,7 +76,7 @@ export default defineNuxtModule<NuxtNativeOptions>({
     })
 
     addTemplate({
-      filename: 'nuxt-native/route-manifest.mjs',
+      filename: 'vastx-native/route-manifest.mjs',
       write: true,
       getContents: () => renderRouteManifestModule(generateRouteManifest(latestPages))
     })

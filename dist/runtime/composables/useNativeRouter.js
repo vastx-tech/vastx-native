@@ -1,7 +1,7 @@
 import { readonly, ref } from "vue";
 import { Frame } from "@nativescript/core";
 import { $navigateBack, $navigateTo } from "nativescript-vue";
-import { routes } from "#build/nuxt-native/route-manifest.mjs";
+import { routes } from "#build/vastx-native/route-manifest.mjs";
 const routeStack = ref([]);
 export function useNativeRouter() {
   async function navigate(name, options = {}) {
@@ -39,7 +39,7 @@ function findRoute(name) {
   const route = routes.find((r) => r.name === name);
   if (!route) {
     const known = routes.map((r) => r.name).join(", ");
-    throw new Error(`[nuxt-native] No route named "${name}". Known routes: ${known}`);
+    throw new Error(`[vastx-native] No route named "${name}". Known routes: ${known}`);
   }
   return route;
 }
