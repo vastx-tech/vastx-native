@@ -46,7 +46,7 @@
     "mcp-server/README.md"
   ],
   "scripts": {
-    "release:build": "node --max-old-space-size=4096 ./node_modules/@nuxt/module-builder/dist/cli.mjs build",
+    "release:build": "nuxt-module-build build",
     "prepublishOnly": "npm run release:build",
     "release": "node scripts/release.mjs",
     "dev": "nuxi dev playground",

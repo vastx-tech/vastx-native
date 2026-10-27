@@ -48,7 +48,8 @@ export function attachNativeClick(view: View, onClick: () => void, options: Nati
     view.off('loaded', onLoaded)
     const nativeView = view.nativeViewProtected as android.view.View | undefined
     nativeView?.setOnClickListener(null)
-    if (options.rippleColor !== false) nativeView?.setForeground(null)
+    // Android accepts null here (it clears the ripple); the SDK typings mark the parameter non-null.
+    if (options.rippleColor !== false) nativeView?.setForeground(null as unknown as android.graphics.drawable.Drawable)
   }
 }
 

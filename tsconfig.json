@@ -5,9 +5,8 @@
     "moduleResolution": "Bundler",
     "strict": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "types": ["@nativescript/types"]
+    "forceConsistentCasingInFileNames": true
   },
-  "include": ["src/**/*.ts", "src/**/*.vue", "cli/**/*.mjs", "bin/**/*.mjs"],
+  "include": ["src/**/*.ts", "src/**/*.vue", "cli/**/*.mjs", "bin/**/*.mjs", "typings/**/*.d.ts"],
   "exclude": ["dist", "playground/**"]
 }
